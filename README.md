@@ -11,7 +11,7 @@ obstacle**, and answers spoken questions about what is in front of the user.
 > sherpa-onnx. There are no API keys, no cloud inference, no telemetry, and no
 > runtime downloads. PyTorch and transformer runtimes are not needed.
 
-![VisionAssist running on macOS](docs/vision-assistant.png)
+![VisionAssist running on macOS](docs/vision-assistant.jpg)
 
 *Live preview with YOLO boxes, distance status, the answer panel, and the
 1.0 m / 0.6 m alert legend.*
