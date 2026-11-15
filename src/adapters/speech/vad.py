@@ -15,7 +15,14 @@ from __future__ import annotations
 import threading
 
 import numpy as np
-import sherpa_onnx
+
+try:
+    import sherpa_onnx
+except Exception as exc:  # see sherpa_compat
+    sherpa_onnx = None
+    SHERPA_IMPORT_ERROR = str(exc)
+else:
+    SHERPA_IMPORT_ERROR = ""
 
 from adapters.paths import model_path
 
@@ -86,6 +93,8 @@ class SpeechSegmenter:
 
     def trim(self, samples: np.ndarray) -> np.ndarray | None:
         """Return the spoken span, or ``None`` when nothing was said."""
+        if sherpa_onnx is None:
+            raise SegmenterError(f"Silero VAD unavailable: {SHERPA_IMPORT_ERROR}")
         if self.error:
             raise SegmenterError(self.error or "Silero VAD unavailable")
         audio = np.ascontiguousarray(samples, dtype=np.float32).reshape(-1)
@@ -133,6 +142,8 @@ class LiveEndpoint:
         min_speech: float = 0.3,
         max_seconds: float = 30.0,
     ) -> None:
+        if sherpa_onnx is None:
+            raise SegmenterError(f"Silero VAD unavailable: {SHERPA_IMPORT_ERROR}")
         self._model = model_file or model_path("silero-vad", "silero_vad.onnx")
         if not self._model.is_file():
             raise SegmenterError(f"Silero VAD model missing: {self._model}")

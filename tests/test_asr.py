@@ -86,3 +86,23 @@ def test_live_endpoint_keeps_waiting_through_silence_without_speech():
     for _ in range(5):
         assert endpoint.accept(np.zeros(1600, dtype=np.float32)) is False
     assert endpoint.speech() is None
+
+
+def test_asr_degrades_when_sherpa_cannot_load(monkeypatch):
+    import adapters.speech.asr as asr_module
+
+    monkeypatch.setattr(asr_module, "sherpa_onnx", None)
+    monkeypatch.setattr(asr_module, "SHERPA_IMPORT_ERROR", "libc++ symbol missing")
+    backend = asr_module.create_asr("parakeet")
+    assert backend.name == "unavailable"
+    assert "sherpa" in (backend.error or "").lower()
+
+
+def test_vad_raises_instead_of_crashing_without_sherpa(monkeypatch):
+    import adapters.speech.vad as vad_module
+
+    segmenter = vad_module.SpeechSegmenter()
+    monkeypatch.setattr(vad_module, "sherpa_onnx", None)
+    monkeypatch.setattr(vad_module, "SHERPA_IMPORT_ERROR", "libc++ symbol missing")
+    with pytest.raises(vad_module.SegmenterError):
+        segmenter.trim(np.zeros(16000, dtype=np.float32))

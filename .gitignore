@@ -31,3 +31,6 @@ src/assets/models/*
 .DS_Store
 # Model bundles parked outside src/assets for small APK builds
 models-optional/
+
+# Agent tooling
+.serena/

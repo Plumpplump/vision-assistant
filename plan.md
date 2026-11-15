@@ -30,7 +30,8 @@ laptop for the demo, on Android later.
    (`tools/package_models.py`: `apk` = 169 MB, `apk-vision` = 907 MB,
    `apk-full` = 1.5 GB). Still needed: a `flet-camera` frame source (OpenCV
    cannot open the Android camera), the APK build on a machine with the Android
-   SDK, and echo cancellation for voice barge-in.
+   SDK, echo cancellation for voice barge-in, and the sherpa-onnx libc++
+   shim step (`tools/patch_android_apk.py`) documented in README/AGENTS.
 3. **Safety/UX audit** — voice "stop" during TTS (needs AEC or a ducker), obstacle
    classes COCO lacks (stairs, glass doors), TalkBack semantics pass, spoken
    startup state.

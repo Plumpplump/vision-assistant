@@ -218,6 +218,12 @@ src/ui/audio.py          FletSpeaker: ft.Audio implementation of the Speaker
                          port (speech, looping alerts, ducking, haptics).
 
 tools/fetch_models.py    copy sibling-project bundles / download VAD+ASR.
+tools/patch_android_apk.py  adds libcxxshim.so to a built APK, aligns and
+                         re-signs it. Needed because sherpa-onnx Android
+                         wheels require a newer libc++ symbol than Flet's
+                         Python runtime provides.
+tools/android/libcxxshim.cpp  defines std::__ndk1::__hash_memory for Android;
+                         adapters/speech/sherpa_compat.py preloads it.
 tools/package_models.py  APK profiles: apk (169 MB), apk-vision (907 MB),
                          apk-full (1.5 GB), full; parks optional models.
 tools/bench_asr.py       WER/RTF benchmark (LibriSpeech dummy, pyarrow+ffmpeg).

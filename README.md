@@ -248,6 +248,30 @@ Android audio input and output are wired (`flet-audio-recorder` +
 `MODIFY_AUDIO_SETTINGS`. The camera is still desktop-only until a
 `flet-camera` frame source replaces OpenCV on the phone.
 
+### Android: sherpa-onnx libc++ shim
+
+`sherpa-onnx` is not on Flet's supported wheel index. Its Android wheel is
+built with NDK r29/r30 and needs `std::__ndk1::__hash_memory`, but Flet's Python
+runtime ships NDK r27 libc++. Without a fix the app dies on start with:
+
+```
+ImportError: dlopen failed: cannot locate symbol
+"_ZNSt6__ndk113__hash_memoryEPKvm" referenced by libsherpa_onnx-lib-_sherpa_onnx.so
+```
+
+The repo ships a tiny `libcxxshim.so` (source `tools/android/libcxxshim.cpp`) and
+preloads it on Android before importing sherpa. Build and patch:
+
+```bash
+flet build apk -v
+python tools/patch_android_apk.py          # adds + signs the shim
+adb install -r build/flutter/build/app/outputs/flutter-apk/app-arm64-v8a-release-patched.apk
+```
+
+Uninstall the old app first: the patched APK is signed with a local debug key.
+The `UserWarning: Unsupported platform (android)` from ONNX Runtime is harmless —
+ONNX Runtime itself is supported by Flet and imports fine.
+
 ## Build
 
 ```bash

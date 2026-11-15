@@ -12,7 +12,14 @@ import threading
 from typing import Protocol
 
 import numpy as np
-import sherpa_onnx
+
+try:
+    import sherpa_onnx
+except Exception as exc:  # Android libc++ mismatch, missing wheel, ...
+    sherpa_onnx = None
+    SHERPA_IMPORT_ERROR = str(exc)
+else:
+    SHERPA_IMPORT_ERROR = ""
 
 from adapters.paths import model_path
 
@@ -32,6 +39,13 @@ class Asr(Protocol):
     def load(self) -> None: ...
 
     def transcribe(self, samples: np.ndarray) -> str: ...
+
+
+def _unavailable_message() -> str:
+    return (
+        "Speech recognition is unavailable: sherpa-onnx failed to load "
+        f"({SHERPA_IMPORT_ERROR or 'native library missing'})."
+    )
 
 
 class UnavailableAsr:
@@ -76,6 +90,8 @@ class ParakeetAsr:
         return None
 
     def load(self) -> None:
+        if sherpa_onnx is None:
+            raise AsrError(_unavailable_message())
         with self._lock:
             if self._recognizer is not None:
                 return
@@ -128,6 +144,8 @@ class ZipformerAsr:
         return None
 
     def load(self) -> None:
+        if sherpa_onnx is None:
+            raise AsrError(_unavailable_message())
         with self._lock:
             if self._recognizer is not None:
                 return
@@ -161,6 +179,8 @@ def create_asr(name: str | None = None) -> Asr:
     """Backend by name; falls back to a spoken explanation, never a crash."""
     import os
 
+    if sherpa_onnx is None:
+        return UnavailableAsr(_unavailable_message())
     requested = (name or os.getenv("VISIONASSIST_ASR") or "parakeet").strip().lower()
     if requested in {"parakeet", "parakeet-110m", "nemo"}:
         asr: Asr = ParakeetAsr()

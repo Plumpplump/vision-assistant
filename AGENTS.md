@@ -102,6 +102,15 @@ Rules that matter:
   Without it, a 0.45-volume chime removed "hey vision" from the transcript and
   the wake rate was 0/3; with it, 5/5 at 0.45 and 0.8. Do not remove this when
   touching audio.
+- Android ABI: **sherpa-onnx is not on Flet's wheel index** and its Android
+  wheels need a newer libc++ symbol (`std::__ndk1::__hash_memory`) than Flet's
+  NDK r27 runtime exports. `tools/android/libcxxshim.cpp` defines it;
+  `adapters/speech/sherpa_compat.py` preloads the shim as RTLD_GLOBAL on Android
+  before importing sherpa, and every post-build APK must be run through
+  `python tools/patch_android_apk.py` (adds + signs `libcxxshim.so`). Do not
+  remove the preload or ship an unpatched APK; without the shim the app still
+  starts (guarded imports) but ASR/VAD are unavailable. ONNX Runtime's
+  "Unsupported platform (android)" warning is benign.
 - `tools/test_wake.py` reproduces wake behaviour acoustically: `--alarm` loops
   the chime for a human, `--say "…"` mixes chime + TTS (`--duck` simulates the
   app) for a repeatable A/B. Detection is *currently* the transcript
