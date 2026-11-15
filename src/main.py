@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Entrypoint. Run with ``flet run`` (desktop) or ``flet run --web``."""
 
 from __future__ import annotations

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 from adapters.detection import Tracker
 from domain import Box, Detection
 

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Turn detections into short, speakable descriptions."""
 
 from __future__ import annotations

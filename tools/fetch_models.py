@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Author: David Li, SISHK
+
 """Populate ``src/assets/models`` for vision-assist.
 
     python tools/fetch_models.py            # copy what exists, download the rest
@@ -7,16 +9,18 @@
 
 Sources of truth:
 
-    yolo11n           copy from ../schooluniform/src/assets/models
-    qwen3.5-0.8b      copy from ../schooluniform/src/assets/models
-    mobileclip2-b     copy from ../schooluniform/src/assets/models
-    paradee + g2p     copy from ../SAT-Words/src/assets
+    yolo11n           copy from ../schooluniform/src/assets/models, else HF
+    qwen3.5-0.8b      copy from ../schooluniform/src/assets/models, else HF
+    mobileclip2-b     copy from ../schooluniform/src/assets/models, else HF
+    paradee + g2p     copy from ../SAT-Words/src/assets, else HF / misaki
     silero-vad        download (MIT)
     asr-parakeet-110m download (CC-BY-4.0, NVIDIA)
 
-Models are large (about 1.5 GB with CLIP and the VLM), so nothing here is
-committed; ``src/assets/models`` is gitignored and packaging profiles decide
-what ships.
+The sibling copies are preferred because they avoid a large download, but every
+bundle also has a canonical Hugging Face source so a fresh checkout works
+without those projects. Models are large (about 1.5 GB with CLIP and the VLM),
+so nothing here is committed; ``src/assets/models`` is gitignored and packaging
+profiles decide what ships.
 """
 
 from __future__ import annotations
@@ -36,6 +40,51 @@ SCHOOLUNIFORM = SIBLINGS / "schooluniform" / "src" / "assets" / "models"
 SAT_WORDS = SIBLINGS / "SAT-Words" / "src" / "assets"
 
 HF = "https://huggingface.co"
+GITHUB = "https://raw.githubusercontent.com"
+# Remote fallbacks for bundles normally copied from the sibling projects.
+# They only fetch when the local file is absent (or --force is given), so a
+# custom sibling export is never silently replaced by the canonical one.
+FALLBACK_DOWNLOADS = [
+    # Detection. The ONNX export is the same Ultralytics YOLO11n graph used by
+    # the sibling project, with the COCO label map next to it.
+    (
+        "webnn/yolo11n",
+        "onnx/yolo11n.onnx",
+        "yolo11n/yolo11n.onnx",
+        "10.7 MB",
+        "AGPL-3.0 (Ultralytics)",
+    ),
+    (
+        "webnn/yolo11n",
+        "config.json",
+        "yolo11n/config.json",
+        "3 KB",
+        "AGPL-3.0 (Ultralytics)",
+    ),
+    # Speech output. Paradee + the misaki English lexicons.
+    (
+        "sahilmahendrakar/Paradee-8M-v1.3",
+        "onnx/paradee_int8.onnx",
+        "paradee/paradee_int8.onnx",
+        "8.5 MB",
+        "Apache-2.0",
+    ),
+    (
+        "sahilmahendrakar/Paradee-8M-v1.3",
+        "config.json",
+        "paradee/config.json",
+        "2 KB",
+        "Apache-2.0",
+    ),
+    (
+        "sahilmahendrakar/Paradee-8M-v1.3",
+        "LICENSE",
+        "paradee/LICENSE",
+        "11 KB",
+        "Apache-2.0",
+    ),
+]
+
 DOWNLOADS = [
     # Speech gating.
     (
@@ -112,6 +161,136 @@ OPTIONAL_DOWNLOADS = [
     ),
 ]
 
+# English G2P data lives in the misaki repository rather than on Hugging Face.
+DIRECT_DOWNLOADS = [
+    (
+        f"{GITHUB}/hexgrad/misaki/main/misaki/data/{name}",
+        f"g2p/{name}",
+        "3 MB",
+        "Apache-2.0",
+    )
+    for name in ("us_gold.json", "us_silver.json", "gb_gold.json", "gb_silver.json")
+]
+
+# Optional open-vocabulary search + vision-language description (--vision).
+# MobileCLIP's export names the image tower visual.onnx; it is stored under the
+# app's canonical name. ONNX Runtime resolves the external data through the
+# filename embedded in the graph, so visual.onnx.data keeps that name.
+VISION_DOWNLOADS = [
+    (
+        "RuteNL/MobileCLIP2-B-OpenCLIP-ONNX",
+        "visual.onnx",
+        "mobileclip2-b/image.onnx",
+        "1.4 MB",
+        "apple-amlr",
+    ),
+    (
+        "RuteNL/MobileCLIP2-B-OpenCLIP-ONNX",
+        "visual.onnx.data",
+        "mobileclip2-b/visual.onnx.data",
+        "345 MB",
+        "apple-amlr",
+    ),
+    (
+        "RuteNL/MobileCLIP2-B-OpenCLIP-ONNX",
+        "text.onnx",
+        "mobileclip2-b/text.onnx",
+        "1.5 MB",
+        "apple-amlr",
+    ),
+    (
+        "RuteNL/MobileCLIP2-B-OpenCLIP-ONNX",
+        "text.onnx.data",
+        "mobileclip2-b/text.onnx.data",
+        "254 MB",
+        "apple-amlr",
+    ),
+    (
+        "RuteNL/MobileCLIP2-B-OpenCLIP-ONNX",
+        "tokenizer.json",
+        "mobileclip2-b/tokenizer.json",
+        "3.6 MB",
+        "apple-amlr",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "onnx/decoder_model_merged_q4.onnx",
+        "qwen3.5-0.8b/onnx/decoder_model_merged_q4.onnx",
+        "0.9 MB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "onnx/decoder_model_merged_q4.onnx_data",
+        "qwen3.5-0.8b/onnx/decoder_model_merged_q4.onnx_data",
+        "485 MB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "onnx/embed_tokens_q4.onnx",
+        "qwen3.5-0.8b/onnx/embed_tokens_q4.onnx",
+        "1 KB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "onnx/embed_tokens_q4.onnx_data",
+        "qwen3.5-0.8b/onnx/embed_tokens_q4.onnx_data",
+        "163 MB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "onnx/vision_encoder_q4.onnx",
+        "qwen3.5-0.8b/onnx/vision_encoder_q4.onnx",
+        "0.2 MB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "onnx/vision_encoder_q4.onnx_data",
+        "qwen3.5-0.8b/onnx/vision_encoder_q4.onnx_data",
+        "68 MB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "tokenizer.json",
+        "qwen3.5-0.8b/tokenizer.json",
+        "19 MB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "config.json",
+        "qwen3.5-0.8b/config.json",
+        "3 KB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "generation_config.json",
+        "qwen3.5-0.8b/generation_config.json",
+        "0.3 KB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "preprocessor_config.json",
+        "qwen3.5-0.8b/preprocessor_config.json",
+        "0.4 KB",
+        "Apache-2.0",
+    ),
+    (
+        "onnx-community/Qwen3.5-0.8B-ONNX",
+        "chat_template.jinja",
+        "qwen3.5-0.8b/chat_template.jinja",
+        "8 KB",
+        "Apache-2.0",
+    ),
+]
+
 COPIES = [
     # (source dir, destination dir, files)
     (SCHOOLUNIFORM / "yolo11n", MODELS / "yolo11n", ("yolo11n.onnx", "config.json")),
@@ -129,7 +308,10 @@ OPTIONAL_COPIES = [
         MODELS / "mobileclip2-b",
         (
             "image.onnx",
+            "image.onnx.data",
+            "visual.onnx.data",
             "text.onnx",
+            "text.onnx.data",
             "config.json",
             "tokenizer.json",
             "tokenizer_config.json",
@@ -150,6 +332,7 @@ OPTIONAL_COPIES = [
             "tokenizer.json",
             "tokenizer_config.json",
             "config.json",
+            "generation_config.json",
             "preprocessor_config.json",
             "chat_template.jinja",
         ),
@@ -180,6 +363,8 @@ def copy_group(source: Path, destination: Path, names: tuple[str, ...], force: b
 # repo that keeps the same filenames (as the zipformer releases do) would be
 # silently skipped and the app would run the previous model.
 EXPECTED_BYTES: dict[str, int] = {
+    "yolo11n/yolo11n.onnx": 10720228,
+    "yolo11n/config.json": 3184,
     "silero-vad/silero_vad.onnx": 639383,
     "asr-zipformer-en/encoder.int8.onnx": 71082637,
     "asr-zipformer-en/decoder.int8.onnx": 1307236,
@@ -189,23 +374,65 @@ EXPECTED_BYTES: dict[str, int] = {
     "asr-parakeet-110m/decoder.int8.onnx": 3955863,
     "asr-parakeet-110m/joiner.int8.onnx": 1411403,
     "asr-parakeet-110m/tokens.txt": 9953,
+    "paradee/paradee_int8.onnx": 8462503,
+    "paradee/config.json": 2103,
+    "paradee/LICENSE": 11358,
+    "g2p/us_gold.json": 3000469,
+    "g2p/us_silver.json": 3099517,
+    "g2p/gb_gold.json": 2838552,
+    "g2p/gb_silver.json": 3663898,
+    "mobileclip2-b/image.onnx": 1353486,
+    "mobileclip2-b/visual.onnx.data": 345440256,
+    "mobileclip2-b/text.onnx": 1477250,
+    "mobileclip2-b/text.onnx.data": 254017536,
+    "mobileclip2-b/tokenizer.json": 3642035,
+    "qwen3.5-0.8b/onnx/decoder_model_merged_q4.onnx": 876359,
+    "qwen3.5-0.8b/onnx/decoder_model_merged_q4.onnx_data": 485425152,
+    "qwen3.5-0.8b/onnx/embed_tokens_q4.onnx": 857,
+    "qwen3.5-0.8b/onnx/embed_tokens_q4.onnx_data": 162897920,
+    "qwen3.5-0.8b/onnx/vision_encoder_q4.onnx": 184854,
+    "qwen3.5-0.8b/onnx/vision_encoder_q4.onnx_data": 68267008,
+    "qwen3.5-0.8b/tokenizer.json": 19226111,
+    "qwen3.5-0.8b/config.json": 2849,
+    "qwen3.5-0.8b/generation_config.json": 248,
+    "qwen3.5-0.8b/preprocessor_config.json": 336,
+    "qwen3.5-0.8b/chat_template.jinja": 7755,
 }
 
 
-def download(repo: str, remote: str, local: str, force: bool) -> None:
+def download_url(
+    url: str, local: str, force: bool, only_if_missing: bool = False
+) -> None:
     target = MODELS / local
     expected = EXPECTED_BYTES.get(local, 0)
     if target.is_file() and not force:
+        if only_if_missing:
+            print(f"  ok    {local}")
+            return
         actual = target.stat().st_size
         if not expected or actual == expected:
             print(f"  ok    {local}")
             return
         print(f"  stale {local} ({actual} != {expected} bytes), refreshing")
     target.parent.mkdir(parents=True, exist_ok=True)
-    url = f"{HF}/{repo}/resolve/main/{remote}"
+    partial = target.with_name(target.name + ".part")
     print(f"  get   {local}")
-    with urllib.request.urlopen(url, timeout=120) as response:
-        target.write_bytes(response.read())
+    # Stream: the VLM/CLIP files are hundreds of megabytes and must not be
+    # buffered in RAM. A completed file only appears after the rename.
+    with urllib.request.urlopen(url, timeout=120) as response, partial.open("wb") as handle:
+        shutil.copyfileobj(response, handle, length=1024 * 1024)
+    partial.replace(target)
+
+
+def download(
+    repo: str, remote: str, local: str, force: bool, only_if_missing: bool = False
+) -> None:
+    download_url(
+        f"{HF}/{repo}/resolve/main/{remote}",
+        local,
+        force,
+        only_if_missing=only_if_missing,
+    )
 
 
 def verify() -> int:
@@ -305,7 +532,7 @@ def main() -> int:
     parser.add_argument(
         "--vision",
         action="store_true",
-        help="also copy MobileCLIP2-B + Qwen VLM (~1.3 GB, search / describe)",
+        help="also fetch MobileCLIP2-B + Qwen VLM (~1.3 GB, search / describe)",
     )
     parser.add_argument(
         "--partials",
@@ -320,13 +547,21 @@ def main() -> int:
     for source, destination, names in COPIES:
         copy_group(source, destination, names, args.force)
 
-    print("Downloads (speech input, later phase):")
-    for repo, remote, local, size, _licence in DOWNLOADS:
+    print("G2P lexicons:")
+    for url, local, _size, _licence in DIRECT_DOWNLOADS:
+        download_url(url, local, args.force)
+
+    print("Remote fallbacks (missing sibling bundles):")
+    for repo, remote, local, _size, _licence in FALLBACK_DOWNLOADS:
+        download(repo, remote, local, args.force, only_if_missing=True)
+
+    print("Downloads (speech input):")
+    for repo, remote, local, _size, _licence in DOWNLOADS:
         download(repo, remote, local, args.force)
 
     if args.partials:
         print("Optional (streaming partials):")
-        for repo, remote, local, size, _licence in OPTIONAL_DOWNLOADS:
+        for repo, remote, local, _size, _licence in OPTIONAL_DOWNLOADS:
             download(repo, remote, local, args.force)
     else:
         print("Skipping streaming zipformer (pass --partials for live partials).")
@@ -335,6 +570,8 @@ def main() -> int:
         print("Optional (open vocabulary + description):")
         for source, destination, names in OPTIONAL_COPIES:
             copy_group(source, destination, names, args.force)
+        for repo, remote, local, _size, _licence in VISION_DOWNLOADS:
+            download(repo, remote, local, args.force, only_if_missing=True)
     else:
         print("Skipping CLIP + VLM bundles (pass --vision to copy them).")
 

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Pre-rendered earcons: quiet by design, no speech unless asked.
 
 Design rules learned from talking to people who use audio interfaces:

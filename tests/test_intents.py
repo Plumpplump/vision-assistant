@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 import pytest
 
 from domain.intents import Intent, parse, strip_wake_word

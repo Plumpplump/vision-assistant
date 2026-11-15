@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Author: David Li, SISHK
+
 """Make a Flet Android APK runnable with sherpa-onnx.
 
 sherpa-onnx's Android wheels are built with NDK r29/r30 and need

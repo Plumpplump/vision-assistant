@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Author: David Li, SISHK
+
 """Kokoro/Paradee phoneme vocabulary and tokenization.
 
 The vocabulary is copied from ``hexgrad/Kokoro-82M`` ``config.json`` and is

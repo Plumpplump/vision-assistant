@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Registry: model name -> adapter factory.
 
 Swap the "brain" with ``VISIONASSIST_DESCRIBER=<name>`` or the settings

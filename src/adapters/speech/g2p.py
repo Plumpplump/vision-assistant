@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Author: David Li, SISHK
+
 """Dictionary-based English grapheme-to-phoneme conversion.
 
 Paradee was trained on phonemes written by `misaki`, Kokoro's G2P library.

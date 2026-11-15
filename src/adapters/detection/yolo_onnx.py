@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """YOLO11n ONNX detector over all 80 COCO classes.
 
 Adapted from the sibling ``schooluniform`` project, which only kept the person

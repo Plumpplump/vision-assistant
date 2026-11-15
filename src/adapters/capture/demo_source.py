@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Synthetic frames so the app is demoable without a camera or video file."""
 
 from __future__ import annotations

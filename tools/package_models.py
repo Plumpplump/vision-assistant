@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Author: David Li, SISHK
+
 """Move model bundles in and out of the Flet assets tree for packaging.
 
 Flet copies everything under ``src/assets`` into the app, so a small APK means

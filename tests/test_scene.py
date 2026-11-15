@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 from domain import Box, CameraModel, Detection
 from domain.scene import describe_scene, scene_items, speakable
 

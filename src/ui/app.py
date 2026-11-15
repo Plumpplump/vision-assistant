@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Flet UI: AppBar, camera preview, status panel, settings dialog.
 
 The UI is deliberately thin: it owns Flet controls and a preview loop, while
@@ -336,9 +338,15 @@ class VisionAssistApp:
     def _on_disconnect(self, event: object) -> None:
         self._closed = True
         try:
-            self.assistant.source.stop()
+            # Cancel the perception/wake tasks and close the microphone too;
+            # otherwise a web/multi-session client keeps recording after the
+            # page is gone. ``shutdown`` is idempotent.
+            self.page.run_task(self.assistant.shutdown)
         except Exception:  # pragma: no cover - shutdown must never raise
-            pass
+            try:
+                self.assistant.source.stop()
+            except Exception:
+                pass
 
     async def _preview_loop(self) -> None:
         while not self._closed:
@@ -402,6 +410,7 @@ class VisionAssistApp:
         parts.append(f"asr: {self.assistant.asr.name}")
         parts.append(f"clip: {'on' if self.assistant.clip.available() else 'missing'}")
         parts.append(f"mic: {self.assistant.microphone.name}")
+        parts.append(f"warn ≤{float(snapshot.get('warn', 1.0)):.1f} m")
         parts.append(f"dist ×{self.assistant.settings.distance_scale:.2f}")
         if self.assistant.settings.surface_height_m > 0:
             parts.append(f"surface {self.assistant.settings.surface_height_m:.2f} m")

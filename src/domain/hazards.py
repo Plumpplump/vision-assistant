@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Turn tracked boxes into alert-worthy hazard events.
 
 Policy, in the order it is applied:

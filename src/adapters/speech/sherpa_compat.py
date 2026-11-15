@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Work around sherpa-onnx Android wheels needing a newer libc++.
 
 sherpa-onnx is not on Flet's supported binary index: its Android wheels are

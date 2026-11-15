@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Voice activity detection: trim recordings and find the end of an utterance.
 
 Silero VAD (MIT, 0.6 MB) runs through ``sherpa-onnx``'s ``VoiceActivityDetector``.

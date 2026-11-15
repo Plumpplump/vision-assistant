@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Backend that reports why it cannot answer instead of inventing text."""
 
 from __future__ import annotations

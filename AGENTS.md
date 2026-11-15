@@ -1,3 +1,5 @@
+<!-- Author: David Li, SISHK -->
+
 # AGENTS.md
 
 Flet 1.x app: a vision assistant demo for blind users. Camera → detection →
@@ -62,7 +64,8 @@ Rules that matter:
 - Weights live in **`src/assets/models/`** (user decision), gitignored except
   `README.md`. `tools/fetch_models.py` copies from the sibling projects
   (`~/Coding/pyprojects/schooluniform`, `~/Coding/pyprojects/SAT-Words`) and
-  downloads VAD/ASR.
+  downloads VAD/ASR. **Runtime is fully offline**: every model is loaded from
+  this directory; do not add cloud/API inference or runtime downloads.
 - Flet bundles `src/assets` into packaged builds. Use
   `tools/package_models.py --profile apk` before building (169 MB); `full`
   restores Qwen/zipformer for local use. The web build excludes `assets/models`.
@@ -76,6 +79,12 @@ Rules that matter:
   `Microphone.record` is **async** now; `_record_with_duck` creates a task for
   it and polls `endpoint.started` to duck alerts. `sounddevice` remains only as
   a dev fallback for `tools/test_wake.py`.
+- macOS: `flet-audio-recorder`'s streaming PCM path returns valid-length but
+  all-zero buffers, while its WAV file recording captures audio normally.
+  `FletAudioRecorderMicrophone` therefore defaults to WAV-file recording on
+  Darwin, polls the growing `data` chunk and feeds it to the same
+  `LiveEndpoint`; `VISIONASSIST_MIC_MODE=file|stream` overrides the choice.
+  Do not switch macOS back to streaming without re-testing wake.
 - Android: `flet-audio-recorder` requires `android.permission.RECORD_AUDIO`
   (declared in `[tool.flet.android.permission]`), plus optional
   `MODIFY_AUDIO_SETTINGS` for Bluetooth headsets. `min_sdk_version = 24` is
@@ -156,7 +165,8 @@ Rules that matter:
   (`VISIONASSIST_IMAGE_SIZE`, must be a multiple of 32). The `_lasttoken`
   decoder variant is used when present (LM head only on the final position).
   Do not run the VLM and the detector at once: `_describe_active` freezes the
-  perception loop for the 3–5 s inference, and the model is warmed at startup.
+  perception loop for the 3–5 s inference. The VLM is loaded lazily on the
+  first description/question, never during startup.
 - Free-form visual questions: intents win; when nothing matches and the
   utterance starts with an open question word (`looks_like_question`),
   `_answer_question` sends the text plus the crop of the mentioned/largest
@@ -177,6 +187,11 @@ Rules that matter:
 ## Audio gotchas (Flet)
 - Never construct `flet_audio.Audio` with `src=None`; the client service init
   throws and `play()` hangs. Construct lazily with a valid `src`.
+- On macOS `fta.Audio(src=bytes)` makes the audioplayers plugin write into
+  `~/Library/Caches/com.appveyor.flet/`, which it does not create; that raises
+  `PathNotFoundException` on a fresh client. `FletSpeaker` writes each WAV to a
+  temp file and passes the absolute path instead (Flet resolves an existing
+  path as a device file); web keeps raw bytes.
 - Assign `src`, call `page.update()`, wait for `on_loaded`, then `play()`.
 - `ReleaseMode.LOOP` for alert patterns (sample-accurate), `ReleaseMode.STOP`
   for one-shots (instant replay). There is no `stop()`; use `pause()`.
@@ -231,7 +246,7 @@ Rules that matter:
   below 3 m, whole metres above.
 
 ## Testing notes
-- 191 unit tests, no camera or audio device required.
+- 210 unit tests, no camera or audio device required.
 - `test_yolo.py`, `test_paradee.py` and `test_asr.py` auto-skip when their assets are missing.
 - `tests/test_assistant.py` shows the pattern for new tests: stub detector,
   stub source, `RecordingSpeaker`; drive `Assistant._analyze` twice because the

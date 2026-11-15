@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Qwen3.5-0.8B vision-language adapter.
 
 The runner does the ONNX work; this class is the ``Describer`` the rest of the

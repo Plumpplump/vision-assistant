@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Open-vocabulary search with MobileCLIP2-B ONNX.
 
 Two static towers (image + text), no generation: embed the query text once,

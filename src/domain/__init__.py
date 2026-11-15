@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Pure-python domain layer: types, distance, hazards, scene, intents, settings."""
 
 from .distance import (

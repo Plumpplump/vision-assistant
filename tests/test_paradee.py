@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 import io
 import wave
 

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Annotated preview frames for the demo UI."""
 
 from __future__ import annotations

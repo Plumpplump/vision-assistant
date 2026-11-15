@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Core domain types: plain data, no I/O, no Flet, no ONNX."""
 
 from __future__ import annotations

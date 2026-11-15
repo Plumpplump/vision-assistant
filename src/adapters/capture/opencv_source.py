@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """OpenCV camera / video-file source, threaded, throttled, self-healing.
 
 Adapted from the sibling ``schooluniform`` project. Two changes matter here:

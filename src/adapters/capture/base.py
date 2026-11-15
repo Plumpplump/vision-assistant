@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Frame sources: one thread per source, UI pulls the latest frame."""
 
 from __future__ import annotations

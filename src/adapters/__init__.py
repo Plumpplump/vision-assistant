@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """I/O adapters: camera, detector, speech, model backends."""
 
 from .paths import assets_dir, model_path, models_dir

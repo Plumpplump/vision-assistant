@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 from math import radians, tan
 
 import pytest
@@ -151,3 +153,8 @@ def test_surface_height_moves_the_measurement_plane_closer():
     desk = CAM.distance_m(box, FRAME_W, FRAME_H, surface_height_m=0.75)
     # camera 1.0 m above the floor, surface 0.75 m -> only 0.25 m above it
     assert desk == pytest.approx(floor * 0.25, rel=1e-6)
+
+
+def test_surface_at_the_camera_has_no_metric_distance():
+    # A desk at eye level is not floor geometry; do not invent 0.15 m.
+    assert CAM.distance_m(box_at(470), FRAME_W, FRAME_H, surface_height_m=1.0) is None

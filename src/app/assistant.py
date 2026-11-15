@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Orchestration: camera -> detection -> hazards -> speech.
 
 No Flet imports here. The UI subscribes with :meth:`Assistant.add_listener`
@@ -63,7 +65,7 @@ from domain.distance import (
     position_word,
     size_ratio,
 )
-from domain.intents import normalize
+from domain.intents import looks_like_question, normalize
 from domain.scene import canonical_target, surface_for
 
 
@@ -170,14 +172,17 @@ class Assistant:
         self.listening = False
         self.last_frame: Frame | None = None
         self.speaking = False
+        self._speaking_count = 0
         self._record_stop = threading.Event()
         self._wake_stop = threading.Event()
         self._await_command_until = 0.0
         self._speech_cooldown_until = 0.0
         self._describe_active = False
         self._warming = False
+        self._wake_notice: str | None = None
 
         self._tasks: list[asyncio.Task] = []
+        self._wake_task: asyncio.Task | None = None
         self._search_task: asyncio.Task | None = None
         self._alerting = False
         self._listeners: list[Callable[[], None]] = []
@@ -223,7 +228,8 @@ class Assistant:
         self._tasks.append(asyncio.create_task(self._perception_loop()))
         self._tasks.append(asyncio.create_task(self._warm_models()))
         if self.settings.wake_enabled and self.microphone.available():
-            self._tasks.append(asyncio.create_task(self._wake_loop()))
+            self._wake_task = asyncio.create_task(self._wake_loop())
+            self._tasks.append(self._wake_task)
         self._notify()
 
     async def _warm_models(self, greet: bool = True) -> None:
@@ -328,6 +334,11 @@ class Assistant:
                 # startup loads the voice, so the greeting is not delayed.
                 await asyncio.sleep(0.1)
                 continue
+            if self.detector.error:
+                # Without weights every frame would raise and print a traceback
+                # at camera rate. The status panel already explains the cause.
+                await asyncio.sleep(1.0)
+                continue
             frame = self.source.latest()
             if (
                 frame is not None
@@ -361,7 +372,14 @@ class Assistant:
                 self._alerting = False
             return
 
-        interesting = [event for event in events if event.kind != "clear"]
+        # FAR is the "tracked but not worth a sound" band. A change *to* FAR
+        # means the object moved away; it must not play a farewell chime (and
+        # must not vibrate) while another hazard keeps the loop running.
+        interesting = [
+            event
+            for event in events
+            if event.kind != "clear" and event.hazard.band is not Band.FAR
+        ]
         if not interesting:
             return
 
@@ -440,6 +458,18 @@ class Assistant:
                 await asyncio.sleep(0.05)
             return task.result()
         finally:
+            # A cancelled assistant (window closed, backend switch) must not
+            # leave the recorder task running with the microphone open.
+            if not task.done():
+                task.cancel()
+                try:
+                    await task
+                except asyncio.CancelledError:
+                    pass
+                except Exception:
+                    traceback.print_exc()
+            elif not task.cancelled():
+                task.exception()
             if ducked:
                 await self.speaker.duck_alerts(False)
 
@@ -467,25 +497,41 @@ class Assistant:
                 continue
 
             try:
+                # Keep the wake capture open for a long silent stretch. A short
+                # 2 s idle timeout used to stop/reopen the recorder every couple
+                # of seconds, and a phrase spoken during the reopen gap was
+                # lost. VAD still ends an utterance ~0.6 s after speech.
                 endpoint = LiveEndpoint(
-                    max_seconds=8.0,
+                    max_seconds=20.0,
                     silence=0.6,
                     min_speech=0.15,
                     threshold=0.4,
                 )
-            except Exception:
+            except Exception as exc:
+                notice = f"VAD unavailable: {exc}"
+                if notice != self._wake_notice:
+                    self._wake_notice = notice
+                    print(f"[wake] {notice}", flush=True)
+                    self.status = notice
+                    self._notify()
                 await asyncio.sleep(2.0)
                 continue
 
             self._wake_stop.clear()
             try:
                 samples = await self._record_with_duck(
-                    8.0,
+                    20.0,
                     self._wake_stop,
                     endpoint,
-                    2.0,
+                    None,
                 )
-            except MicrophoneError:
+            except MicrophoneError as exc:
+                notice = f"microphone unavailable: {exc}"
+                if notice != self._wake_notice:
+                    self._wake_notice = notice
+                    print(f"[wake] {notice}", flush=True)
+                    self.status = notice
+                    self._notify()
                 await asyncio.sleep(2.0)
                 continue
             except Exception:  # pragma: no cover - device specific
@@ -499,7 +545,16 @@ class Assistant:
 
             speech = endpoint.speech()
             if speech is None:
+                level = (
+                    float(np.sqrt(np.mean(samples**2))) if samples.size else 0.0
+                )
+                if level > 0.01:
+                    notice = f"no VAD speech (rms {level:.3f})"
+                    if notice != self._wake_notice:
+                        self._wake_notice = notice
+                        print(f"[wake] {notice}", flush=True)
                 continue
+            self._wake_notice = None
             try:
                 text = await asyncio.to_thread(self.asr.transcribe, speech)
             except Exception:
@@ -704,7 +759,9 @@ class Assistant:
         if request.intent is Intent.LOCATE:
             return await self._locate(request.target, yes_no=False)
         if request.intent is Intent.DESCRIBE:
-            return await self._describe(request.target)
+            # Keep the user's wording: "what colour is the cup?" must reach the
+            # VLM as that question, not be flattened to "describe the cup".
+            return await self._describe(request.target, text)
         if request.intent is Intent.STOP:
             self._cancel_search()
             await self.speaker.stop()
@@ -747,7 +804,12 @@ class Assistant:
         the app keeps the old "I didn't catch that" behaviour.
         """
         frame = self.last_frame
-        if self.describer.name == "fake" or frame is None or frame.image is None:
+        if (
+            self.describer.name == "fake"
+            or frame is None
+            or frame.image is None
+            or not looks_like_question(text)
+        ):
             return UNKNOWN_TEXT
 
         detection = self._detection_for_question(text)
@@ -775,7 +837,6 @@ class Assistant:
             answer = ""
         finally:
             self._describe_active = False
-        self._warming = False
         return answer or UNKNOWN_TEXT
 
     async def _clip_position(self, target: str) -> tuple[str, float] | None:
@@ -890,7 +951,7 @@ class Assistant:
         y2 = min(height, int(box.y2 + pad_y))
         return frame.image[y1:y2, x1:x2].copy()
 
-    async def _describe(self, target: str | None) -> str:
+    async def _describe(self, target: str | None, asked: str = "") -> str:
         frame = self.last_frame
         if frame is None or frame.image is None:
             return "I don't have a picture right now."
@@ -900,7 +961,9 @@ class Assistant:
             return f"I can't see {wanted} in front of me."
 
         crop = self._crop(frame, detection)
-        question = (
+        # Preserve a real question ("what colour is the cup?"); for a generic
+        # "describe it" the adapter supplies its own short prompt.
+        question = (asked or "").strip() or (
             f"Describe the {target} in one short sentence."
             if target
             else "Describe what you see in one short sentence."
@@ -927,7 +990,6 @@ class Assistant:
             answer = ""
         finally:
             self._describe_active = False
-        self._warming = False
 
         if not answer:
             answer = self._template_description(detection, frame)
@@ -1040,9 +1102,13 @@ class Assistant:
                     if score >= self.settings.clip_threshold:
                         clip_hits += 1
                         if clip_hits >= self.SEARCH_HITS:
-                            found_position, _ = await asyncio.to_thread(
-                                self.clip.best_strip, frame.image, clip_embedding
-                            )
+                            self._describe_active = True
+                            try:
+                                found_position, _ = await asyncio.to_thread(
+                                    self.clip.best_strip, frame.image, clip_embedding
+                                )
+                            finally:
+                                self._describe_active = False
                             break
                     else:
                         clip_hits = 0
@@ -1112,6 +1178,10 @@ class Assistant:
     async def _say(self, text: str) -> None:
         if not text or not self.settings.speech_enabled:
             return
+        # The greeting is fire-and-forget and can overlap an answer. Keep
+        # ``speaking`` true until the last queued utterance finishes, or the
+        # wake loop starts recording over the tail.
+        self._speaking_count += 1
         self.speaking = True
         try:
             await self.speaker.speak(
@@ -1125,7 +1195,8 @@ class Assistant:
         except Exception:
             traceback.print_exc()
         finally:
-            self.speaking = False
+            self._speaking_count = max(0, self._speaking_count - 1)
+            self.speaking = self._speaking_count > 0
             self._speech_cooldown_until = time.monotonic() + 0.6
 
     # ---------------------------------------------------------------- settings
@@ -1157,13 +1228,20 @@ class Assistant:
                 )
         if self.settings.wake_enabled != previous_wake:
             self._wake_stop.set()
-            if self.settings.wake_enabled:
+            # Re-enabling must reuse the idle loop started at launch; starting
+            # another would double-record and answer every phrase twice.
+            if (
+                self.settings.wake_enabled
+                and self.microphone.available()
+                and (self._wake_task is None or self._wake_task.done())
+            ):
                 try:
                     loop = asyncio.get_running_loop()
                 except RuntimeError:
                     pass
                 else:
-                    self._tasks.append(loop.create_task(self._wake_loop()))
+                    self._wake_task = loop.create_task(self._wake_loop())
+                    self._tasks.append(self._wake_task)
         if not self.settings.alerts_enabled:
             self._alerting = False
         self.settings.save()
@@ -1191,6 +1269,8 @@ class Assistant:
             "hazards": len(self.scene.hazards),
             "detections": len(self.scene.detections),
             "nearest": nearest.speech if nearest else "",
+            "warn": self.settings.alert_near_m,
+            "close": self.settings.alert_close_m,
             "fps": self.last_frame.fps if self.last_frame else 0.0,
             "model_error": self.model_error,
         }

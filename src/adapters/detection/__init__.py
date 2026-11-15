@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Detection adapters."""
 
 from .tracker import Tracker, iou

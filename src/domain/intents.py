@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Deterministic intent parsing.
 
 Rules beat an LLM here: the vocabulary is small, the behaviour must be

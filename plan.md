@@ -1,3 +1,5 @@
+<!-- Author: David Li, SISHK -->
+
 # Plan — VisionAssist
 
 Decisions behind the demo. Product goals and the original shortlist live in

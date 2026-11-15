@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Application orchestration layer."""
 
 from .assistant import Assistant, NullSpeaker, Speaker

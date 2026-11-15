@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Author: David Li, SISHK
+
 """Render every alert sound to WAV so a human can judge it.
 
     python tools/audition_alerts.py [output-dir]

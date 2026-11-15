@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 import pytest
 
 from domain import Band, Box, CameraModel, Track
@@ -133,6 +135,17 @@ def test_default_thresholds_only_warn_within_one_metre():
     calibrated = HazardMonitor(camera=CameraModel(scale=0.5))
     close_events = calibrated.update([track(bottom=479)], FRAME_W, FRAME_H, now=0.0)
     assert close_events and close_events[0].hazard.band is Band.CLOSE
+
+
+def test_two_metre_object_is_silent_with_default_thresholds():
+    # With the default camera this box bottom is about 2 m away; the 1.0 m
+    # warn threshold must keep it silent.
+    monitor_default = HazardMonitor(camera=CAM)
+    events = monitor_default.update(
+        [track(bottom=298, height=100)], FRAME_W, FRAME_H, now=0.0
+    )
+    assert events == []
+    assert monitor_default.hazards == []
 
 
 def test_default_corridor_is_the_middle_third():

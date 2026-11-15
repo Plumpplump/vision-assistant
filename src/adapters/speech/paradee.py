@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Author: David Li, SISHK
+
 """On-device English TTS with Paradee-8M v1.3 (Kokoro-distilled) via onnxruntime.
 
 Ported from the sibling ``SAT-Words`` project, where the same code path is

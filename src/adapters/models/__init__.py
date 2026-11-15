@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Model backend registry."""
 
 from .base import Capabilities, DescribeRequest, Describer, DescriberError

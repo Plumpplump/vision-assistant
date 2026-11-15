@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """UI layer: Flet app + audio output."""
 
 from .app import VisionAssistApp, main

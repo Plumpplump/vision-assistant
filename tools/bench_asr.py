@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Author: David Li, SISHK
+
 """A/B benchmark the ASR passes on identical audio.
 
     python tools/bench_asr.py                     # 25 LibriSpeech clips, both models

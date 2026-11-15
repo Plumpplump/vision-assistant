@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Microphone input through Flet's AudioRecorder extension.
 
 ``flet-audio-recorder`` supports Windows, macOS, Linux, iOS, Android and web,
@@ -17,8 +19,14 @@ Android permission: ``android.permission.RECORD_AUDIO`` is declared in
 from __future__ import annotations
 
 import asyncio
+import os
+import shutil
+import struct
+import sys
+import tempfile
 import threading
 import time
+from pathlib import Path
 from typing import Protocol
 
 import numpy as np
@@ -59,6 +67,14 @@ class FletAudioRecorderMicrophone:
         self._chunks = bytearray()
         self._error: str | None = None
         self._import_error: str | None = None
+        # On macOS the `record` plugin's startStream() returns valid-length
+        # buffers that are all zeros, while its WAV file recording captures
+        # audio normally. Default to file recording there and feed the growing
+        # file to the VAD; VISIONASSIST_MIC_MODE=file|stream overrides it.
+        mode = os.getenv("VISIONASSIST_MIC_MODE", "").strip().lower()
+        self._file_mode = mode == "file" or (
+            mode != "stream" and sys.platform == "darwin"
+        )
 
     def _module(self):
         try:
@@ -86,7 +102,11 @@ class FletAudioRecorderMicrophone:
         if far is None or self._page is None:
             raise MicrophoneError(self._error or "Audio recorder unavailable.")
         configuration = far.AudioRecorderConfiguration(
-            encoder=far.AudioEncoder.PCM16BITS,
+            encoder=(
+                far.AudioEncoder.WAV
+                if self._file_mode
+                else far.AudioEncoder.PCM16BITS
+            ),
             channels=CHANNELS,
             sample_rate=self.sample_rate,
             suppress_noise=True,
@@ -95,7 +115,11 @@ class FletAudioRecorderMicrophone:
         )
         self._recorder = far.AudioRecorder(
             configuration=configuration,
-            on_stream=lambda event: self._chunks.extend(event.chunk),
+            on_stream=(
+                None
+                if self._file_mode
+                else lambda event: self._chunks.extend(event.chunk)
+            ),
         )
         self._page.services.append(self._recorder)
         self._page.update()
@@ -116,6 +140,21 @@ class FletAudioRecorderMicrophone:
         return np.frombuffer(data, dtype=np.int16).astype(np.float32) / 32768.0
 
     async def record(
+        self,
+        max_seconds: float,
+        stop_event: threading.Event,
+        endpoint=None,
+        idle_timeout: float | None = None,
+    ) -> np.ndarray:
+        if self._file_mode:
+            return await self._record_file(
+                max_seconds, stop_event, endpoint, idle_timeout
+            )
+        return await self._record_stream(
+            max_seconds, stop_event, endpoint, idle_timeout
+        )
+
+    async def _record_stream(
         self,
         max_seconds: float,
         stop_event: threading.Event,
@@ -179,6 +218,145 @@ class FletAudioRecorderMicrophone:
             audio = np.concatenate(captured)
         else:
             audio = np.zeros(0, dtype=np.float32)
+        if audio.size == 0:
+            self._error = "The recorder produced no audio."
+        return audio
+
+    # ----------------------------------------------------------- file capture
+
+    @staticmethod
+    def _wav_data_offset(path: Path) -> int | None:
+        """Offset of the PCM data chunk in a (possibly still growing) WAV."""
+        try:
+            with path.open("rb") as handle:
+                if handle.read(4) != b"RIFF":
+                    return None
+                handle.seek(12)
+                while True:
+                    header = handle.read(8)
+                    if len(header) < 8:
+                        return None
+                    chunk_id = header[:4]
+                    chunk_size = struct.unpack("<I", header[4:])[0]
+                    if chunk_id == b"data":
+                        return handle.tell()
+                    handle.seek(chunk_size + (chunk_size & 1), 1)
+        except OSError:
+            return None
+
+    @staticmethod
+    def _to_float32(data: bytes) -> np.ndarray:
+        if len(data) < 2:
+            return np.zeros(0, dtype=np.float32)
+        usable = len(data) // 2 * 2
+        return (
+            np.frombuffer(data[:usable], dtype=np.int16).astype(np.float32)
+            / 32768.0
+        )
+
+    async def _record_file(
+        self,
+        max_seconds: float,
+        stop_event: threading.Event,
+        endpoint=None,
+        idle_timeout: float | None = None,
+    ) -> np.ndarray:
+        """WAV-file recording with live polling.
+
+        The macOS build of ``record`` returns all-zero PCM through
+        ``startStream`` but writes a correct WAV file. We record to a temp WAV
+        and feed its growing data chunk to the same ``LiveEndpoint``, so wake
+        and push-to-talk keep their end-of-speech behaviour.
+        """
+        recorder = self._ensure_recorder()
+        self._error = None
+        try:
+            granted = await recorder.has_permission()
+        except Exception as exc:
+            raise MicrophoneError(f"Microphone permission check failed: {exc}") from exc
+        if not granted:
+            raise MicrophoneError(
+                "Microphone permission denied. Allow it in Android settings."
+            )
+
+        directory = Path(tempfile.mkdtemp(prefix="vision-assist-mic-"))
+        path = directory / "recording.wav"
+        captured: list[np.ndarray] = []
+        pending = bytearray()
+        offset: int | None = None
+        started_at = time.monotonic()
+
+        def consume() -> np.ndarray:
+            nonlocal offset
+            if offset is None:
+                offset = self._wav_data_offset(path)
+                if offset is None:
+                    return np.zeros(0, dtype=np.float32)
+            try:
+                size = path.stat().st_size
+            except OSError:
+                return np.zeros(0, dtype=np.float32)
+            if size <= offset:
+                return np.zeros(0, dtype=np.float32)
+            with path.open("rb") as handle:
+                handle.seek(offset)
+                data = handle.read()
+            offset += len(data)
+            pending.extend(data)
+            usable = len(pending) // 2 * 2
+            if usable == 0:
+                return np.zeros(0, dtype=np.float32)
+            block = self._to_float32(bytes(pending[:usable]))
+            del pending[:usable]
+            return block
+
+        try:
+            try:
+                started = await recorder.start_recording(output_path=str(path))
+            except Exception as exc:
+                raise MicrophoneError(f"Could not start recording: {exc}") from exc
+            if not started:
+                raise MicrophoneError("Could not start recording.")
+            started_at = time.monotonic()
+
+            while True:
+                await asyncio.sleep(POLL_SECONDS)
+                elapsed = time.monotonic() - started_at
+                block = consume()
+                if block.size:
+                    captured.append(block)
+                    if endpoint is not None and endpoint.accept(block):
+                        break
+                if stop_event.is_set():
+                    break
+                if (
+                    idle_timeout is not None
+                    and endpoint is not None
+                    and not endpoint.started
+                    and elapsed >= idle_timeout
+                ):
+                    break
+                if elapsed >= max_seconds:
+                    break
+        finally:
+            try:
+                await recorder.stop_recording()
+            except Exception:  # pragma: no cover - already stopped
+                pass
+            # The recorder flushes on stop; pick up the final buffered PCM.
+            await asyncio.sleep(0.05)
+            tail = consume()
+            if tail.size:
+                captured.append(tail)
+                if endpoint is not None:
+                    endpoint.accept(tail)
+            shutil.rmtree(directory, ignore_errors=True)
+
+        audio = (
+            np.concatenate(captured)
+            if captured
+            else np.zeros(0, dtype=np.float32)
+        )
         if audio.size == 0:
             self._error = "The recorder produced no audio."
         return audio

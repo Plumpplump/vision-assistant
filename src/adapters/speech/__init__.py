@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Speech adapters: ASR, VAD, microphone, TTS and earcons."""
 
 from .sherpa_compat import preload as _preload_sherpa

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Author: David Li, SISHK
+
 """Wake-word probe: log exactly what the wake loop hears.
 
     python tools/test_wake.py --seconds 120

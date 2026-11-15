@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Qwen3.5-0.8B vision-language runner (ONNX int4), short descriptions.
 
 Adapted from the sibling ``schooluniform`` runner, which used the same graph as
@@ -404,10 +406,16 @@ class QwenVlRunner:
                 self._image_token_id = int(config.get("image_token_id", -1))
                 if self._image_token_id < 0:
                     self._image_token_id = self._tokenizer.token_to_id(IMAGE_PAD) or -1
-                generation = json.loads(
-                    (self.model_dir / "generation_config.json").read_text()
+                generation_file = self.model_dir / "generation_config.json"
+                generation = (
+                    json.loads(generation_file.read_text())
+                    if generation_file.is_file()
+                    else {}
                 )
-                self._eos = {int(token) for token in generation.get("eos_token_id", [])}
+                eos_ids = generation.get("eos_token_id", [])
+                if isinstance(eos_ids, int):
+                    eos_ids = [eos_ids]
+                self._eos = {int(token) for token in eos_ids}
                 im_end = self._tokenizer.token_to_id(IM_END)
                 if im_end is not None:
                     self._eos.add(im_end)

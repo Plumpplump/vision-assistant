@@ -1,3 +1,5 @@
+// Author: David Li, SISHK
+
 // Compatibility shim for sherpa-onnx Android wheels built with NDK r29/r30.
 //
 // Flet's Android Python runtime links libc++ from NDK r27, which lacks

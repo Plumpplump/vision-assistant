@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 import numpy as np
 import pytest
 

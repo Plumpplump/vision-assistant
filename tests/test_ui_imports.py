@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Import-level smoke tests: no Flutter harness, no camera, no audio device."""
 
 from pathlib import Path

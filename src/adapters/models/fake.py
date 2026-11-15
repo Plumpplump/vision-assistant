@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Deterministic stand-in for a vision-language model."""
 
 from __future__ import annotations

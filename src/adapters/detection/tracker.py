@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Minimal tracking-by-detection: stable IDs via greedy IoU matching.
 
 Adapted from the sibling ``schooluniform`` project. Commercial pipelines

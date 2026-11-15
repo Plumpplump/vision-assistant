@@ -1,3 +1,5 @@
+<!-- Author: David Li, SISHK -->
+
 # ASR benchmark: Parakeet 110M vs streaming zipformer
 
 Date: 2026-11-15 · machine: this laptop (CPU only, `onnxruntime` int8, 2 threads)

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """User settings: plain data plus JSON persistence, no Flet types."""
 
 from __future__ import annotations
@@ -105,5 +107,29 @@ class Settings:
         except (OSError, json.JSONDecodeError):
             return cls()
         known = {field.name for field in fields(cls)}
-        values = {key: value for key, value in raw.items() if key in known}
-        return cls(**values).normalized()
+        defaults = cls()
+        # A hand-edited or older file can contain a non-numeric value. Coerce
+        # what is unambiguous and drop only the fields that cannot be used,
+        # rather than refusing to start with a corrupt settings file.
+        values: dict[str, object] = {}
+        for key, value in raw.items():
+            if key not in known:
+                continue
+            default = getattr(defaults, key)
+            try:
+                if isinstance(default, bool):
+                    if not isinstance(value, bool):
+                        raise TypeError(key)
+                elif isinstance(default, int):
+                    value = int(value)
+                elif isinstance(default, float):
+                    value = float(value)
+                elif isinstance(default, str) and not isinstance(value, str):
+                    raise TypeError(key)
+            except (TypeError, ValueError):
+                continue
+            values[key] = value
+        try:
+            return cls(**values).normalized()
+        except (TypeError, ValueError):
+            return cls()

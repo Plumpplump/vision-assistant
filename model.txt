@@ -1,9 +1,12 @@
+# Author: David Li, SISHK
+
 VISIONASSIST — AI MODELS AND PYTHON/FLET MODULES
 ================================================
 
 Repository: /home/panger/Coding/pyprojects/vision-assist
 Generated: 2026-11-15
 Runtime: Python 3.14 (shared venv), ONNX Runtime only, no PyTorch/transformers.
+Fully offline at runtime: all weights are in src/assets/models; no cloud/API.
 
 
 1. AI MODELS IN USE
@@ -109,7 +112,7 @@ platformdirs>=4.0           per-user settings path (~/.config/vision-assist).
 tokenizers>=0.23            CLIP and Qwen tokenizers (tokenizer.json).
 
 Dev-only:
-pytest, pytest-asyncio      unit tests (191, no camera/audio needed).
+pytest, pytest-asyncio      unit tests (210, no camera/audio needed).
 flet-cli/desktop/web        flet run / build.
 flet[test]                  Flutter integration harness (unusable here: no cmake).
 pyarrow>=17                 tools/bench_asr.py parquet corpus.
@@ -230,7 +233,7 @@ tools/bench_asr.py       WER/RTF benchmark (LibriSpeech dummy, pyarrow+ffmpeg).
 tools/test_wake.py       acoustic wake probe (human or TTS, alarm simulation).
 tools/audition_alerts.py renders every earcon to WAV for listening tests.
 
-tests/                   191 pytest unit tests. test_yolo, test_paradee,
+tests/                   210 pytest unit tests. test_yolo, test_paradee,
                          test_asr, test_clip auto-skip when assets are missing.
 
 

@@ -1,4 +1,7 @@
+# Author: David Li, SISHK
+
 import asyncio
+import threading
 
 import numpy as np
 import pytest
@@ -7,7 +10,16 @@ from adapters.capture.base import Frame
 from adapters.models.fake import FakeDescriber
 from adapters.speech import PassthroughSegmenter
 from app.assistant import UNKNOWN_TEXT, Assistant
-from domain import Box, Detection, Settings
+from domain import (
+    AlertEvent,
+    Band,
+    Box,
+    Detection,
+    FrameScene,
+    Hazard,
+    Settings,
+    Vertical,
+)
 
 
 class StubDetector:
@@ -99,6 +111,20 @@ class RecordingSpeaker:
         self.ducked.append(ducked)
 
 
+class GatedSpeaker(RecordingSpeaker):
+    """RecordingSpeaker whose speak() waits for a per-call gate."""
+
+    def __init__(self):
+        super().__init__()
+        self.gates: list[asyncio.Event] = []
+
+    async def speak(self, text, voice, speed, volume):
+        gate = asyncio.Event()
+        self.gates.append(gate)
+        self.said.append(text)
+        await gate.wait()
+
+
 def make_scene():
     image = np.zeros((480, 640, 3), dtype=np.uint8)
     frame = Frame(jpeg=b"", width=640, height=480, timestamp=0.0, fps=12.0, image=image)
@@ -186,6 +212,22 @@ def test_find_announces_a_stable_hit():
 
 
 @pytest.mark.asyncio
+async def test_recording_ducks_alerts_when_speech_starts():
+    assistant, speaker, _frame, _events = build()
+    endpoint = type("Endpoint", (), {"started": False})()
+
+    async def record(max_seconds, stop_event, endpoint=None, idle_timeout=None):
+        await asyncio.sleep(0.1)
+        endpoint.started = True
+        await asyncio.sleep(0.1)
+        return np.ones(16000, dtype=np.float32)
+
+    assistant.microphone.record = record
+    await assistant._record_with_duck(1.0, threading.Event(), endpoint)
+    assert speaker.ducked == [True, False]
+
+
+@pytest.mark.asyncio
 async def test_shutdown_is_idempotent():
     assistant, _speaker, _frame, _events = build()
     await assistant.shutdown()
@@ -199,6 +241,35 @@ async def test_default_alerts_are_soft_looped_chimes_with_haptics():
     assert speaker.earcons and speaker.earcons[0][1] is True  # loop=True
     assert speaker.haptics == ["heavy"]  # the chair is close
     assert not speaker.said
+
+
+@pytest.mark.asyncio
+async def test_receding_to_far_does_not_play_or_vibrate():
+    assistant, speaker, _frame, _events = build()
+    far = Hazard(
+        track_id=99,
+        label="chair",
+        band=Band.FAR,
+        pan=0.0,
+        vertical=Vertical.FLOOR,
+        box=Box(10, 10, 100, 100),
+        distance_m=2.0,
+    )
+    near = Hazard(
+        track_id=98,
+        label="cup",
+        band=Band.NEAR,
+        pan=0.0,
+        vertical=Vertical.WAIST,
+        box=Box(20, 20, 90, 90),
+        distance_m=0.9,
+    )
+    assistant.scene = FrameScene(hazards=[near])
+    await assistant._handle_events(
+        [AlertEvent(kind="change", hazard=far, previous=Band.CLOSE)]
+    )
+    assert speaker.earcons == []
+    assert speaker.haptics == []
 
 
 @pytest.mark.asyncio
@@ -443,6 +514,48 @@ async def test_free_form_visual_question_goes_to_the_describer():
     assert reply == "A red cup on the table."
     assert describer.questions == ["how many people are here"]
     assert speaker.said[-1] == reply
+
+
+@pytest.mark.asyncio
+async def test_colour_question_keeps_its_wording():
+    assistant, _speaker, _frame, _events = build()
+    describer = StubDescriber()
+    assistant.describer = describer
+    reply = await assistant.ask("what colour is the cup?")
+    assert reply == "A red cup on the table."
+    assert describer.questions == ["what colour is the cup?"]
+
+
+@pytest.mark.asyncio
+async def test_speaking_flag_covers_overlapping_utterances():
+    assistant, _speaker, _frame, _events = build()
+    speaker = GatedSpeaker()
+    assistant.speaker = speaker
+
+    first = asyncio.create_task(assistant._say("one"))
+    while not speaker.gates:
+        await asyncio.sleep(0)
+    second = asyncio.create_task(assistant._say("two"))
+    while len(speaker.gates) < 2:
+        await asyncio.sleep(0)
+
+    speaker.gates[0].set()
+    await asyncio.wait_for(first, timeout=1)
+    assert assistant.speaking is True
+
+    speaker.gates[1].set()
+    await asyncio.wait_for(second, timeout=1)
+    assert assistant.speaking is False
+
+
+@pytest.mark.asyncio
+async def test_chit_chat_does_not_reach_the_describer():
+    assistant, _speaker, _frame, _events = build()
+    describer = StubDescriber()
+    assistant.describer = describer
+    reply = await assistant.ask("banana")
+    assert reply == UNKNOWN_TEXT
+    assert describer.questions == []
 
 
 @pytest.mark.asyncio

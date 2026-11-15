@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 1. i want to make  vision help app for blind people with some embedded AI models and Python Flet
 2. it is a demo project. we will use laptop or android phone camera for testing. But we imagine that the blind person is wearing a digital assitance that has camera and microphone and speaker. 
 3. it can detect if an object(obstable) is within some distabce (configurate) directly infront of him

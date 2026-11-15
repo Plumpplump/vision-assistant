@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Pick a frame source from configuration.
 
 ``VISIONASSIST_SOURCE`` values:

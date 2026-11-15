@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Path resolution for bundled assets and models.
 
 Flet sets ``FLET_ASSETS_DIR`` when the app is packaged; during ``flet run`` the

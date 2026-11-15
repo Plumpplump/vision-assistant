@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Vision-language backend protocol.
 
 Nothing outside this package names a model. Adding one means writing an

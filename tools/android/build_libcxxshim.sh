@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Author: David Li, SISHK
+
 # Build the arm64 compatibility shim used by tools/patch_android_apk.py.
 #
 # Requires the Android NDK. Flet installs NDK 28 under ~/Android/sdk/ndk; set

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Construct the settings dialog without a Flet session.
 
 Control kwargs are only validated when a control is built, so this catches

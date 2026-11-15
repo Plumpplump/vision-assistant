@@ -1,3 +1,5 @@
+<!-- Author: David Li, SISHK -->
+
 # Wake word ("Hey Vision")
 
 Goal: a blind user can start a request without finding a button, but the app

@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 import time
 
 from adapters.capture import OpenCVSource, UnavailableSource, create_source

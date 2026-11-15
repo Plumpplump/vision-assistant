@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 from domain.settings import Settings
 
 
@@ -38,6 +40,18 @@ def test_load_corrupt_file_returns_defaults(tmp_path):
     path = tmp_path / "settings.json"
     path.write_text("{not json", encoding="utf-8")
     assert Settings.load(path) == Settings()
+
+
+def test_load_wrong_value_types_keeps_valid_fields(tmp_path):
+    path = tmp_path / "settings.json"
+    path.write_text(
+        '{"confidence": "high", "corridor": 0.4, "voice": 42}',
+        encoding="utf-8",
+    )
+    loaded = Settings.load(path)
+    assert loaded.confidence == Settings().confidence
+    assert loaded.corridor == 0.4
+    assert loaded.voice == Settings().voice
 
 
 def test_unknown_keys_are_ignored(tmp_path):

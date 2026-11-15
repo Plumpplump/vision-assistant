@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Distance for a single camera, and the bands the alert policy uses.
 
 Two different questions live here:
@@ -81,8 +83,12 @@ class CameraModel:
             return None
         # The box bottom is the contact point. For a phone on a desk that plane
         # is ``surface_height_m`` above the floor, so the camera is that much
-        # closer to it. Clamp so a surface at camera level cannot divide by ~0.
-        height = max(0.05, self.height_m - max(0.0, surface_height_m))
+        # closer to it. If the surface is at/above the camera there is no
+        # usable geometry: returning a near-zero height would fake a distance
+        # of a few centimetres instead of saying "unknown".
+        height = self.height_m - max(0.0, surface_height_m)
+        if height <= 0.05:
+            return None
         offset = box.y2 - frame_height / 2.0
         angle = radians(self.pitch_deg) + atan2(offset, focal)
         if degrees(angle) <= 1.5:

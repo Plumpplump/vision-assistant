@@ -1,3 +1,5 @@
+# Author: David Li, SISHK
+
 """Speech recognition adapters (sherpa-onnx).
 
 Parakeet TDT 110M is the default: on the 73-clip LibriSpeech dummy benchmark it
