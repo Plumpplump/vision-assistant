@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environments / secrets
+.env
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+src/assets/models/
+# Flet
+.flet/
+build/
+
+# Bundled model weights (fetched by tools/fetch_models.py)
+src/assets/models/*
+!src/assets/models/README.md
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+# Model bundles parked outside src/assets for small APK builds
+models-optional/

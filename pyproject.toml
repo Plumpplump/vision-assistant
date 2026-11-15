@@ -1,0 +1,88 @@
+[project]
+name = "vision-assist"
+version = "0.1.0"
+description = "Vision assistant demo for blind users: camera, hazards, speech"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Flet developer", email = "you@example.com" }
+]
+dependencies = [
+    "flet>=1.1.2",
+    "flet-audio>=1.1.2",
+    "flet-audio-recorder>=1.1.2",
+    "numpy>=2.0",
+    "opencv-python-headless>=5.0.0.93",
+    "onnxruntime>=1.27.0",
+    "tokenizers>=0.23",
+    "sherpa-onnx>=2.0.1",
+    "platformdirs>=4.0",
+]
+
+[dependency-groups]
+dev = [
+    "flet-cli>=1.1.2",
+    "flet-desktop>=1.1.2",
+    "flet-web>=1.1.2",
+    # Integration testing with `flet test` / pytest. The `test` extra brings in
+    # pytest, pytest-asyncio and the screenshot-comparison dependencies.
+    "flet[test]>=1.1.2",
+    # Only for tools/bench_asr.py (parquet corpus); not a runtime dependency.
+    "pyarrow>=17",
+    # Desktop-only microphone for tools/test_wake.py (never in the APK).
+    "sounddevice>=0.5",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.flet]
+desktop_flavor = "full"     # required for flet-audio
+org = "com.mycompany"
+product = "vision-assist"
+company = "Flet"
+copyright = "Copyright (C) 2023-2026 by Flet"
+
+# src/assets/icon.png is the icon for every platform.
+# icon_background = "#ffffff"
+
+[tool.flet.app]
+path = "src"
+
+# Native dependencies for packaged builds. onnxruntime publishes wheels for
+# arm64-v8a and x86_64; there is no armeabi-v7a wheel.
+[tool.flet.android.dependencies]
+onnxruntime = ">=1.27.0"
+sherpa-onnx = ">=2.0.1"
+
+[tool.flet.linux.dependencies]
+onnxruntime = ">=1.27.0"
+sherpa-onnx = ">=2.0.1"
+
+[tool.flet.windows.dependencies]
+onnxruntime = ">=1.27.0"
+sherpa-onnx = ">=2.0.1"
+
+[tool.flet.android]
+split_per_abi = true
+target_arch = ["arm64-v8a"]
+# sherpa-onnx publishes Android wheels for API 24+; onnxruntime does too via
+# Flet's pypi.flet.dev index.
+min_sdk_version = 24
+
+# flet-audio-recorder uses RECORD_AUDIO; MODIFY_AUDIO_SETTINGS lets it route to
+# Bluetooth headsets, which blind users often prefer.
+# Camera permission is intentionally absent: OpenCV cannot open the Android
+# camera, and flet-camera is not wired yet. Add "android.permission.CAMERA"
+# (and remove the storage permissions it implies, see Flet's Android docs)
+# together with a flet-camera frame source.
+[tool.flet.android.permission]
+"android.permission.RECORD_AUDIO" = true
+"android.permission.MODIFY_AUDIO_SETTINGS" = true
+
+[tool.flet.web.app]
+# The browser runtime (Pyodide) has no onnxruntime, so the web build must not
+# ship 1.5 GB of model weights it cannot use.
+exclude = ["assets/models"]

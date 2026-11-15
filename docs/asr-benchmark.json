@@ -1,0 +1,1126 @@
+[
+  {
+    "model": "zipformer",
+    "clips": 73,
+    "audio_seconds": 481.03,
+    "load_seconds": 4.48,
+    "decode_seconds": 62.06,
+    "rtf": 0.129,
+    "first_partial_median_s": 0.134,
+    "wer": 0.0922,
+    "cer": 0.045,
+    "per_clip": [
+      {
+        "id": "1272-128104-0000",
+        "audio_s": 5.855,
+        "decode_s": 0.7009695429999852,
+        "hypothesis": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOS",
+        "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL"
+      },
+      {
+        "id": "1272-128104-0001",
+        "audio_s": 4.815,
+        "decode_s": 0.5740261290000035,
+        "hypothesis": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER",
+        "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER"
+      },
+      {
+        "id": "1272-128104-0002",
+        "audio_s": 12.485,
+        "decode_s": 1.573616415999993,
+        "hypothesis": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MI",
+        "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND"
+      },
+      {
+        "id": "1272-128104-0003",
+        "audio_s": 9.9,
+        "decode_s": 1.4151266850000184,
+        "hypothesis": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERIC LAYTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHAC",
+        "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA"
+      },
+      {
+        "id": "1272-128104-0004",
+        "audio_s": 29.4,
+        "decode_s": 4.01228464899998,
+        "hypothesis": "LINEL'S PICTURES ARE A SORT OF UP GUARDS AND ATOM PAINTINGS AND MASONS EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BRICKETT FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN CALLIERS GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+        "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN"
+      },
+      {
+        "id": "1272-128104-0005",
+        "audio_s": 9.01,
+        "decode_s": 1.2275720410000304,
+        "hypothesis": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE AN EXPRESS",
+        "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION"
+      },
+      {
+        "id": "1272-128104-0006",
+        "audio_s": 5.64,
+        "decode_s": 0.7472556829999917,
+        "hypothesis": "ON A GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY",
+        "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY"
+      },
+      {
+        "id": "1272-128104-0007",
+        "audio_s": 9.24,
+        "decode_s": 1.2742909990000157,
+        "hypothesis": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE",
+        "reference": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT"
+      },
+      {
+        "id": "1272-128104-0008",
+        "audio_s": 5.12,
+        "decode_s": 0.6716347120000137,
+        "hypothesis": "AS FOR ETCHINGS THERE ARE OF TWO KINDS BRITISH AND FOR",
+        "reference": "AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN"
+      },
+      {
+        "id": "1272-128104-0009",
+        "audio_s": 18.29,
+        "decode_s": 2.511697291999951,
+        "hypothesis": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTER",
+        "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER"
+      },
+      {
+        "id": "1272-128104-0010",
+        "audio_s": 5.6,
+        "decode_s": 0.7490870670000049,
+        "hypothesis": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MENTAL BOARD",
+        "reference": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MANTEL BOARD"
+      },
+      {
+        "id": "1272-128104-0011",
+        "audio_s": 15.115,
+        "decode_s": 2.035760401999994,
+        "hypothesis": "IN FACT HE IS QUITE SEVERE ON MISTER RUSKIN FOR NOT RECOGNIZING THAT A PICTURE SHOULD DENOTE THE FRAILTY OF MAN AND REMARKS WITH PLEASING COURTESY AND FELICITOUS GRACE THAT MANY PHASES OF",
+        "reference": "IN FACT HE IS QUITE SEVERE ON MISTER RUSKIN FOR NOT RECOGNISING THAT A PICTURE SHOULD DENOTE THE FRAILTY OF MAN AND REMARKS WITH PLEASING COURTESY AND FELICITOUS GRACE THAT MANY PHASES OF FEELING"
+      },
+      {
+        "id": "1272-128104-0012",
+        "audio_s": 5.38,
+        "decode_s": 0.6962694650000003,
+        "hypothesis": "ONLY UNFORTUNATELY HIS OWN WORK NEVER DOES GET GOOD",
+        "reference": "ONLY UNFORTUNATELY HIS OWN WORK NEVER DOES GET GOOD"
+      },
+      {
+        "id": "1272-128104-0013",
+        "audio_s": 7.1,
+        "decode_s": 0.9125280669999825,
+        "hypothesis": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAIN",
+        "reference": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING"
+      },
+      {
+        "id": "1272-128104-0014",
+        "audio_s": 2.245,
+        "decode_s": 0.2706955979999748,
+        "hypothesis": "BY HARRY QUILTER M",
+        "reference": "BY HARRY QUILTER M A"
+      },
+      {
+        "id": "1272-135031-0000",
+        "audio_s": 10.885,
+        "decode_s": 1.428396336999981,
+        "hypothesis": "BECAUSE YOU ARE ASLEEPING INSTEAD OF CONQUERING THE LOVELY ROSE PRINCESS HAS BECOME A FIDDLE WITHOUT A BOW OR POOR SHAGGY SITS THERE A COOING DOVE",
+        "reference": "BECAUSE YOU WERE SLEEPING INSTEAD OF CONQUERING THE LOVELY ROSE PRINCESS HAS BECOME A FIDDLE WITHOUT A BOW WHILE POOR SHAGGY SITS THERE A COOING DOVE"
+      },
+      {
+        "id": "1272-135031-0001",
+        "audio_s": 11.13,
+        "decode_s": 1.5367045140000073,
+        "hypothesis": "HE HAS GONE AND GONE FOR GOOD ANSWERED POLYCHROME WHO HAD MANAGED TO SQUEEZE INTO THE ROOM BESIDE THE DRAGON AND HAD WITNESSED THE OCCURRENCES WITH MUCH INTEREST",
+        "reference": "HE HAS GONE AND GONE FOR GOOD ANSWERED POLYCHROME WHO HAD MANAGED TO SQUEEZE INTO THE ROOM BESIDE THE DRAGON AND HAD WITNESSED THE OCCURRENCES WITH MUCH INTEREST"
+      },
+      {
+        "id": "1272-135031-0002",
+        "audio_s": 11.475,
+        "decode_s": 1.5351387599999953,
+        "hypothesis": "I HAVE REMAINED A PRISONER ONLY BECAUSE I WISHED TO BE ONE AND WITH THIS HE STEPPED FORWARD AND BURST THE STOUT CHAINS AS EASILY AS IF THEY HAD BEEN THREAD",
+        "reference": "I HAVE REMAINED A PRISONER ONLY BECAUSE I WISHED TO BE ONE AND WITH THIS HE STEPPED FORWARD AND BURST THE STOUT CHAINS AS EASILY AS IF THEY HAD BEEN THREADS"
+      },
+      {
+        "id": "1272-135031-0003",
+        "audio_s": 4.755,
+        "decode_s": 0.6139280759999792,
+        "hypothesis": "THE LITTLE GIRL HAD BEEN ASLEEP BUT SHE HEARD THE RAPS AND OPENED THE DOOR",
+        "reference": "THE LITTLE GIRL HAD BEEN ASLEEP BUT SHE HEARD THE RAPS AND OPENED THE DOOR"
+      },
+      {
+        "id": "1272-135031-0004",
+        "audio_s": 4.225,
+        "decode_s": 0.522910496999998,
+        "hypothesis": "THE KING HAS FLED DISGRACE AND YOUR FRIENDS ARE ASKING FOR",
+        "reference": "THE KING HAS FLED IN DISGRACE AND YOUR FRIENDS ARE ASKING FOR YOU"
+      },
+      {
+        "id": "1272-135031-0005",
+        "audio_s": 4.625,
+        "decode_s": 0.5769130510000195,
+        "hypothesis": "I BEGGED RUGGEDO LONG AGO TO SEND HIM AWAY BUT HE WOULD NOT DO",
+        "reference": "I BEGGED RUGGEDO LONG AGO TO SEND HIM AWAY BUT HE WOULD NOT DO SO"
+      },
+      {
+        "id": "1272-135031-0006",
+        "audio_s": 4.09,
+        "decode_s": 0.5322643929999913,
+        "hypothesis": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO",
+        "reference": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO"
+      },
+      {
+        "id": "1272-135031-0007",
+        "audio_s": 4.055,
+        "decode_s": 0.5337959440000191,
+        "hypothesis": "HE EATS AND SLEEPS VERY STEADILY REPLIED THE NEW KING",
+        "reference": "HE EATS AND SLEEPS VERY STEADILY REPLIED THE NEW KING"
+      },
+      {
+        "id": "1272-135031-0008",
+        "audio_s": 3.67,
+        "decode_s": 0.4824846779999916,
+        "hypothesis": "I HOPE HE DOESN'T WORK TOO HARD SAID SHAGGY",
+        "reference": "I HOPE HE DOESN'T WORK TOO HARD SAID SHAGGY"
+      },
+      {
+        "id": "1272-135031-0009",
+        "audio_s": 1.91,
+        "decode_s": 0.22289674799998238,
+        "hypothesis": "HE DOESN'T WORK",
+        "reference": "HE DOESN'T WORK AT ALL"
+      },
+      {
+        "id": "1272-135031-0010",
+        "audio_s": 8.995,
+        "decode_s": 1.1952597309999646,
+        "hypothesis": "IN FACT THERE IS NOTHING HE CAN DO IN THESE DOMINIONS AS WELL AS OUR GNOMES WHOSE NUMBERS ARE SO GREAT THAT IT WORRIES US TO KEEP THEM ALL BU",
+        "reference": "IN FACT THERE IS NOTHING HE CAN DO IN THESE DOMINIONS AS WELL AS OUR NOMES WHOSE NUMBERS ARE SO GREAT THAT IT WORRIES US TO KEEP THEM ALL BUSY"
+      },
+      {
+        "id": "1272-135031-0011",
+        "audio_s": 3.18,
+        "decode_s": 0.39238672099997984,
+        "hypothesis": "NOT EXACTLY RETURNED KALI",
+        "reference": "NOT EXACTLY RETURNED KALIKO"
+      },
+      {
+        "id": "1272-135031-0012",
+        "audio_s": 2.04,
+        "decode_s": 0.21916841300003398,
+        "hypothesis": "WHERE IS MY BRO",
+        "reference": "WHERE IS MY BROTHER NOW"
+      },
+      {
+        "id": "1272-135031-0013",
+        "audio_s": 3.7,
+        "decode_s": 0.47375708999999233,
+        "hypothesis": "INQUIRED SHAGGY IN THE METAL FOREST",
+        "reference": "INQUIRED SHAGGY IN THE METAL FOREST"
+      },
+      {
+        "id": "1272-135031-0014",
+        "audio_s": 1.74,
+        "decode_s": 0.17598041700000522,
+        "hypothesis": "WHERE IS",
+        "reference": "WHERE IS THAT"
+      },
+      {
+        "id": "1272-135031-0015",
+        "audio_s": 7.375,
+        "decode_s": 0.9667862740000146,
+        "hypothesis": "THE MIDDLE FOREST IS IN THE GREAT DOMED CAVERN THE LARGEST IN ALL OUR DOMINIONS REPLIED KALI",
+        "reference": "THE METAL FOREST IS IN THE GREAT DOMED CAVERN THE LARGEST IN ALL OUR DOMINIONS REPLIED KALIKO"
+      },
+      {
+        "id": "1272-135031-0016",
+        "audio_s": 2.28,
+        "decode_s": 0.26733822199997803,
+        "hypothesis": "KALIKO HESITATED",
+        "reference": "KALIKO HESITATED"
+      },
+      {
+        "id": "1272-135031-0017",
+        "audio_s": 6.86,
+        "decode_s": 0.9093954680000138,
+        "hypothesis": "HOWEVER IF WE LOOK SHARP WE MAY BE ABLE TO DISCOVER ONE OF THESE SECRET WAY",
+        "reference": "HOWEVER IF WE LOOK SHARP WE MAY BE ABLE TO DISCOVER ONE OF THESE SECRET WAYS"
+      },
+      {
+        "id": "1272-135031-0018",
+        "audio_s": 2.4449375,
+        "decode_s": 0.3057966439999973,
+        "hypothesis": "OH NO I'M QUITE SURE HE DID",
+        "reference": "OH NO I'M QUITE SURE HE DIDN'T"
+      },
+      {
+        "id": "1272-135031-0019",
+        "audio_s": 3.525,
+        "decode_s": 0.4559029159999568,
+        "hypothesis": "THAT'S FUNNY REMARKED BETSY THOUGHTFUL",
+        "reference": "THAT'S FUNNY REMARKED BETSY THOUGHTFULLY"
+      },
+      {
+        "id": "1272-135031-0020",
+        "audio_s": 4.65,
+        "decode_s": 0.6131025429999681,
+        "hypothesis": "I DON'T BELIEVE ANNE KNEW ANY MAGIC OR SHE'D HAVE WORKED IT BEFORE",
+        "reference": "I DON'T BELIEVE ANN KNEW ANY MAGIC OR SHE'D HAVE WORKED IT BEFORE"
+      },
+      {
+        "id": "1272-135031-0021",
+        "audio_s": 2.595,
+        "decode_s": 0.3131471830000123,
+        "hypothesis": "I DO NOT KNOW CONFESS",
+        "reference": "I DO NOT KNOW CONFESSED SHAGGY"
+      },
+      {
+        "id": "1272-135031-0022",
+        "audio_s": 2.695,
+        "decode_s": 0.3007786420000116,
+        "hypothesis": "TRUE AGREED",
+        "reference": "TRUE AGREED KALIKO"
+      },
+      {
+        "id": "1272-135031-0023",
+        "audio_s": 7.52,
+        "decode_s": 1.003167229999974,
+        "hypothesis": "KALIKO WENT TO THE BIG GONG AND POUNDED ON IT JUST AS BIRGADO USED TO DO BUT NO ONE ANSWERED THE SUMMONS",
+        "reference": "KALIKO WENT TO THE BIG GONG AND POUNDED ON IT JUST AS RUGGEDO USED TO DO BUT NO ONE ANSWERED THE SUMMONS"
+      },
+      {
+        "id": "1272-135031-0024",
+        "audio_s": 14.47,
+        "decode_s": 2.089690002999987,
+        "hypothesis": "HAVING RETURNED AT A ROYAL CAVERN CALICO FIRST POUNDED THE GONG AND THEN SAT IN THE THRONE WEARING BRIGADOES DISCARDED RUBY CROWN AND HOLDING IN HIS HAND THE SCEPTRE WHICH RUGGEDO HAD SO OFTEN THROWN AT HIS",
+        "reference": "HAVING RETURNED TO THE ROYAL CAVERN KALIKO FIRST POUNDED THE GONG AND THEN SAT IN THE THRONE WEARING RUGGEDO'S DISCARDED RUBY CROWN AND HOLDING IN HIS HAND THE SCEPTRE WHICH RUGGEDO HAD SO OFTEN THROWN AT HIS HEAD"
+      },
+      {
+        "id": "1272-141231-0000",
+        "audio_s": 4.65,
+        "decode_s": 0.651038289999974,
+        "hypothesis": "A MAN SAID TO THE UNIVERSE SIR I EXIST",
+        "reference": "A MAN SAID TO THE UNIVERSE SIR I EXIST"
+      },
+      {
+        "id": "1272-141231-0001",
+        "audio_s": 6.535,
+        "decode_s": 0.9504581690000009,
+        "hypothesis": "SWEAT COVERED BRION'S BODY TRICKLING INTO THE TIGHTLY CLOTH THAT WAS THE ONLY GARMENT HE",
+        "reference": "SWEAT COVERED BRION'S BODY TRICKLING INTO THE TIGHT LOINCLOTH THAT WAS THE ONLY GARMENT HE WORE"
+      },
+      {
+        "id": "1272-141231-0002",
+        "audio_s": 13.335,
+        "decode_s": 1.7262226309999846,
+        "hypothesis": "THE CUT ON HIS CHEST STILL DRIPPING BLOOD THE ACHE OF HIS OVERSTRAINED EYES EVEN THE SOARING ARENA AROUND HIM WAS THE THOUSANDS OF SPECTATORS WERE TRIVIALITIES NOT WORTH THINKING ABOUT",
+        "reference": "THE CUT ON HIS CHEST STILL DRIPPING BLOOD THE ACHE OF HIS OVERSTRAINED EYES EVEN THE SOARING ARENA AROUND HIM WITH THE THOUSANDS OF SPECTATORS WERE TRIVIALITIES NOT WORTH THINKING ABOUT"
+      },
+      {
+        "id": "1272-141231-0003",
+        "audio_s": 5.42,
+        "decode_s": 0.6516426750000051,
+        "hypothesis": "HIS INSTANT PANIC WAS FOLLOWED BY A SMALL SHARP BLOW HIGH ON HIS CHEST",
+        "reference": "HIS INSTANT OF PANIC WAS FOLLOWED BY A SMALL SHARP BLOW HIGH ON HIS CHEST"
+      },
+      {
+        "id": "1272-141231-0004",
+        "audio_s": 5.09,
+        "decode_s": 0.6311051819999989,
+        "hypothesis": "ONE MINUTE A VOICE SAID AND A TIME BUZZER SOUND",
+        "reference": "ONE MINUTE A VOICE SAID AND THE TIME BUZZER SOUNDED"
+      },
+      {
+        "id": "1272-141231-0005",
+        "audio_s": 5.81,
+        "decode_s": 0.6910632269999724,
+        "hypothesis": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HAS BODY NEEDED EVERY FRACTION",
+        "reference": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT"
+      },
+      {
+        "id": "1272-141231-0006",
+        "audio_s": 4.93,
+        "decode_s": 0.5887900530000252,
+        "hypothesis": "THE BUZZERS WERE TRIGGERED HIS MUSCLES INTO COMPLETE RELAXATION",
+        "reference": "THE BUZZER'S WHIRR TRIGGERED HIS MUSCLES INTO COMPLETE RELAXATION"
+      },
+      {
+        "id": "1272-141231-0007",
+        "audio_s": 4.735,
+        "decode_s": 0.5729527919999668,
+        "hypothesis": "ONLY HIS HEART AND LUNGS WORKED ON AT A STRONG MEASURED RA",
+        "reference": "ONLY HIS HEART AND LUNGS WORKED ON AT A STRONG MEASURED RATE"
+      },
+      {
+        "id": "1272-141231-0008",
+        "audio_s": 4.595,
+        "decode_s": 0.5230576129999918,
+        "hypothesis": "HE WAS IN REVERIE SLIDING ALONG THE BORDERS OF CONSCIOUS",
+        "reference": "HE WAS IN REVERIE SLIDING ALONG THE BORDERS OF CONSCIOUSNESS"
+      },
+      {
+        "id": "1272-141231-0009",
+        "audio_s": 8.62,
+        "decode_s": 1.060797530000002,
+        "hypothesis": "THE CONTESTANTS IN THE TWENTIES NEEDED UNDISTURBED REST THEREFORE KNIGHTS AND THE DORMITORIES WERE AS QUIET AS DE",
+        "reference": "THE CONTESTANTS IN THE TWENTIES NEEDED UNDISTURBED REST THEREFORE NIGHTS IN THE DORMITORIES WERE AS QUIET AS DEATH"
+      },
+      {
+        "id": "1272-141231-0010",
+        "audio_s": 10.76,
+        "decode_s": 1.3524737700000173,
+        "hypothesis": "PARTICULARLY SO ON THIS LAST NIGHT WHEN ONLY TWO OF THE LITTLE CUBICLES WERE OCCUPIED THE THOUSANDS OF OTHERS STANDING WITH DARK EMPTY DOORS",
+        "reference": "PARTICULARLY SO ON THIS LAST NIGHT WHEN ONLY TWO OF THE LITTLE CUBICLES WERE OCCUPIED THE THOUSANDS OF OTHERS STANDING WITH DARK EMPTY DOORS"
+      },
+      {
+        "id": "1272-141231-0011",
+        "audio_s": 5.015,
+        "decode_s": 0.6176614990000076,
+        "hypothesis": "THE OTHER VOICE SNAPPED WITH A HARSH URGENCY CLEARLY USED TO COMMAN",
+        "reference": "THE OTHER VOICE SNAPPED WITH A HARSH URGENCY CLEARLY USED TO COMMAND"
+      },
+      {
+        "id": "1272-141231-0012",
+        "audio_s": 7.74,
+        "decode_s": 0.9430228390000366,
+        "hypothesis": "I'M HERE BECAUSE THE MATTER IS OF UTMOST IMPORTANCE AND BRAND IS THE ONE I MUST SEE NOW STAND ASIDE",
+        "reference": "I'M HERE BECAUSE THE MATTER IS OF UTMOST IMPORTANCE AND BRANDD IS THE ONE I MUST SEE NOW STAND ASIDE"
+      },
+      {
+        "id": "1272-141231-0013",
+        "audio_s": 1.6399375,
+        "decode_s": 0.1641186159999961,
+        "hypothesis": "THE TW",
+        "reference": "THE TWENTIES"
+      },
+      {
+        "id": "1272-141231-0014",
+        "audio_s": 7.305,
+        "decode_s": 0.9016040310000335,
+        "hypothesis": "IT MUST HAVE DRAWN HIS GUN BECAUSE THE INTRUDERS SAID QUICKLY BUT THAT AWAY YOUR BEING A FOOL",
+        "reference": "HE MUST HAVE DRAWN HIS GUN BECAUSE THE INTRUDER SAID QUICKLY PUT THAT AWAY YOU'RE BEING A FOOL OUT"
+      },
+      {
+        "id": "1272-141231-0015",
+        "audio_s": 5.68,
+        "decode_s": 0.6922069519999923,
+        "hypothesis": "THERE WAS SILENCE THEN AND STILL WONDERING BRION WAS ONCE MORE ASLE",
+        "reference": "THERE WAS SILENCE THEN AND STILL WONDERING BRION WAS ONCE MORE ASLEEP"
+      },
+      {
+        "id": "1272-141231-0016",
+        "audio_s": 1.85,
+        "decode_s": 0.2117133049999893,
+        "hypothesis": "TEN SECOND",
+        "reference": "TEN SECONDS"
+      },
+      {
+        "id": "1272-141231-0017",
+        "audio_s": 3.735,
+        "decode_s": 0.47177240500002426,
+        "hypothesis": "HE ASKED THE HANDLER WHO WAS KNEADING HIS ACHING MUSCLE",
+        "reference": "HE ASKED THE HANDLER WHO WAS KNEADING HIS ACHING MUSCLES"
+      },
+      {
+        "id": "1272-141231-0018",
+        "audio_s": 6.0,
+        "decode_s": 0.7612939229999824,
+        "hypothesis": "A RED HAIRED MOUNTAIN OF A MAN WITH AN APPARENTLY INEXHAUSTIBLE STORE OF ENERGY",
+        "reference": "A RED HAIRED MOUNTAIN OF A MAN WITH AN APPARENTLY INEXHAUSTIBLE STORE OF ENERGY"
+      },
+      {
+        "id": "1272-141231-0019",
+        "audio_s": 4.7,
+        "decode_s": 0.6182547500000055,
+        "hypothesis": "THERE COULD BE LITTLE ART IN THIS LAST AND FINAL ROUND OF FENC",
+        "reference": "THERE COULD BE LITTLE ART IN THIS LAST AND FINAL ROUND OF FENCING"
+      },
+      {
+        "id": "1272-141231-0020",
+        "audio_s": 4.32,
+        "decode_s": 0.5380181619999576,
+        "hypothesis": "JUST THRUST AND PARRY AND VICTORY TO THE STRONGER",
+        "reference": "JUST THRUST AND PARRY AND VICTORY TO THE STRONGER"
+      },
+      {
+        "id": "1272-141231-0021",
+        "audio_s": 4.65,
+        "decode_s": 0.6542898469999727,
+        "hypothesis": "EVERY MAN WHO ENTERED THE TWENTIES HAD HIS OWN TRAINING TRICKS",
+        "reference": "EVERY MAN WHO ENTERED THE TWENTIES HAD HIS OWN TRAINING TRICKS"
+      },
+      {
+        "id": "1272-141231-0022",
+        "audio_s": 8.35,
+        "decode_s": 1.01021646800001,
+        "hypothesis": "THERE APPEARED TO BE AN IMMEDIATE ASSOCIATION WITH THE DEAF DRAMA AS IF THE TWO WERE INEXTRICABLY LINKED INTO ONE",
+        "reference": "THERE APPEARED TO BE AN IMMEDIATE ASSOCIATION WITH THE DEATH TRAUMA AS IF THE TWO WERE INEXTRICABLY LINKED INTO ONE"
+      },
+      {
+        "id": "1272-141231-0023",
+        "audio_s": 8.66,
+        "decode_s": 1.056679755999994,
+        "hypothesis": "TO STRENGTHEN ENABLES SOME ONE IN A TRANCE TO HOLD HIS BODY STIFF AND UNSUPPORTED EXCEPT AT TWO POINTS THE HEAD AND HEEL",
+        "reference": "THE STRENGTH THAT ENABLES SOMEONE IN A TRANCE TO HOLD HIS BODY STIFF AND UNSUPPORTED EXCEPT AT TWO POINTS THE HEAD AND HEELS"
+      },
+      {
+        "id": "1272-141231-0024",
+        "audio_s": 3.64,
+        "decode_s": 0.42052658300002577,
+        "hypothesis": "THIS IS PHYSICALLY IMPOSSIBLE WHEN CONSC",
+        "reference": "THIS IS PHYSICALLY IMPOSSIBLE WHEN CONSCIOUS"
+      },
+      {
+        "id": "1272-141231-0025",
+        "audio_s": 8.725,
+        "decode_s": 1.0588146900000197,
+        "hypothesis": "OTHERS HAD DIED BEFORE DURING THE TWENTIES AND DEATH DURING THE LAST ROUND WAS IN SOME WAYS EASIER THAN DEF",
+        "reference": "OTHERS HAD DIED BEFORE DURING THE TWENTIES AND DEATH DURING THE LAST ROUND WAS IN SOME WAYS EASIER THAN DEFEAT"
+      },
+      {
+        "id": "1272-141231-0026",
+        "audio_s": 6.635,
+        "decode_s": 0.825233508999986,
+        "hypothesis": "BREATHING DEEPLY BRION SOFTLY SPOKE THE AUTO HYPNOTIC PHRASES THAT TRIGGERED THE PROCES",
+        "reference": "BREATHING DEEPLY BRION SOFTLY SPOKE THE AUTO HYPNOTIC PHRASES THAT TRIGGERED THE PROCESS"
+      },
+      {
+        "id": "1272-141231-0027",
+        "audio_s": 6.57,
+        "decode_s": 0.814519439000037,
+        "hypothesis": "WHEN THE BUZZER SOUNDED HE PULLED HIS FOIL FROM HIS SECOND STARTLED GRASP AND RAN FORWARD",
+        "reference": "WHEN THE BUZZER SOUNDED HE PULLED HIS FOIL FROM HIS SECOND'S STARTLED GRASP AND RAN FORWARD"
+      },
+      {
+        "id": "1272-141231-0028",
+        "audio_s": 5.65,
+        "decode_s": 0.692143241999986,
+        "hypothesis": "OUR OLD CLICKED AMAZED AT THE SUDDEN FURY OF THE ATTACK THEN SMIL",
+        "reference": "IROLG LOOKED AMAZED AT THE SUDDEN FURY OF THE ATTACK THEN SMILED"
+      },
+      {
+        "id": "1272-141231-0029",
+        "audio_s": 6.88,
+        "decode_s": 0.8596076169999947,
+        "hypothesis": "HE SAID IT WAS THE LAST BURST OF ENERGY HE KNEW HOW CLOSELY BOTH WERE TO EXHAUSTION",
+        "reference": "HE THOUGHT IT WAS A LAST BURST OF ENERGY HE KNEW HOW CLOSE THEY BOTH WERE TO EXHAUSTION"
+      },
+      {
+        "id": "1272-141231-0030",
+        "audio_s": 7.13,
+        "decode_s": 0.8639216600000168,
+        "hypothesis": "BRION SAW SOMETHING CLOSE PANIC ON HIS OPPONENT'S FACE WHEN THE MAN FINALLY RECOGNIZED HIS ER",
+        "reference": "BRION SAW SOMETHING CLOSE TO PANIC ON HIS OPPONENT'S FACE WHEN THE MAN FINALLY RECOGNIZED HIS ERROR"
+      },
+      {
+        "id": "1272-141231-0031",
+        "audio_s": 7.115,
+        "decode_s": 0.8793923759999984,
+        "hypothesis": "A WAVE OF DESPAIR ROLLED OUT FROM IROGUE BRION SENSED IT AND KNEW THE FIFTH POINT WAS HIS",
+        "reference": "A WAVE OF DESPAIR ROLLED OUT FROM IROLG BRION SENSED IT AND KNEW THE FIFTH POINT WAS HIS"
+      },
+      {
+        "id": "1272-141231-0032",
+        "audio_s": 4.48,
+        "decode_s": 0.5648552190000373,
+        "hypothesis": "THEN THE POWERFUL TWIST THAT THRUST IT ASIDE IN AND UNDER THE",
+        "reference": "THEN THE POWERFUL TWIST THAT THRUST IT ASIDE IN AND UNDER THE GUARD"
+      }
+    ],
+    "error_examples": [
+      {
+        "id": "1272-128104-0000",
+        "audio_s": 5.855,
+        "decode_s": 0.7009695429999852,
+        "hypothesis": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOS",
+        "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL"
+      },
+      {
+        "id": "1272-128104-0002",
+        "audio_s": 12.485,
+        "decode_s": 1.573616415999993,
+        "hypothesis": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MI",
+        "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND"
+      },
+      {
+        "id": "1272-128104-0003",
+        "audio_s": 9.9,
+        "decode_s": 1.4151266850000184,
+        "hypothesis": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERIC LAYTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHAC",
+        "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA"
+      },
+      {
+        "id": "1272-128104-0004",
+        "audio_s": 29.4,
+        "decode_s": 4.01228464899998,
+        "hypothesis": "LINEL'S PICTURES ARE A SORT OF UP GUARDS AND ATOM PAINTINGS AND MASONS EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BRICKETT FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN CALLIERS GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN",
+        "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN"
+      },
+      {
+        "id": "1272-128104-0005",
+        "audio_s": 9.01,
+        "decode_s": 1.2275720410000304,
+        "hypothesis": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE AN EXPRESS",
+        "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION"
+      }
+    ],
+    "normalized_mismatches": 59
+  },
+  {
+    "model": "parakeet",
+    "clips": 73,
+    "audio_seconds": 481.03,
+    "load_seconds": 1.77,
+    "decode_seconds": 26.34,
+    "rtf": 0.055,
+    "first_partial_median_s": null,
+    "wer": 0.0461,
+    "cer": 0.0155,
+    "per_clip": [
+      {
+        "id": "1272-128104-0000",
+        "audio_s": 5.855,
+        "decode_s": 0.33389923400000043,
+        "hypothesis": "mister Quilter is the apostle of the middle classes, and we are glad to welcome his gospel.",
+        "reference": "MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL"
+      },
+      {
+        "id": "1272-128104-0001",
+        "audio_s": 4.815,
+        "decode_s": 0.2830187609999939,
+        "hypothesis": "Nor is mister Quilter's manner less interesting than his manner.",
+        "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER"
+      },
+      {
+        "id": "1272-128104-0002",
+        "audio_s": 12.485,
+        "decode_s": 0.6451683279999543,
+        "hypothesis": "He tells us that at this festive season of the year, with Christmas and roast beef looming before us, similes drawn from eating and its results occur most readily to the mind.",
+        "reference": "HE TELLS US THAT AT THIS FESTIVE SEASON OF THE YEAR WITH CHRISTMAS AND ROAST BEEF LOOMING BEFORE US SIMILES DRAWN FROM EATING AND ITS RESULTS OCCUR MOST READILY TO THE MIND"
+      },
+      {
+        "id": "1272-128104-0003",
+        "audio_s": 9.9,
+        "decode_s": 0.5013549829999988,
+        "hypothesis": "He has grave doubts whether Sir Frederick Leighton's work is really Greek after all, and can discover in it but little of rocky Ithaca.",
+        "reference": "HE HAS GRAVE DOUBTS WHETHER SIR FREDERICK LEIGHTON'S WORK IS REALLY GREEK AFTER ALL AND CAN DISCOVER IN IT BUT LITTLE OF ROCKY ITHACA"
+      },
+      {
+        "id": "1272-128104-0004",
+        "audio_s": 29.4,
+        "decode_s": 1.6062874259999944,
+        "hypothesis": "Linel's pictures are a sort of up guards and atom paintings, and Mason's exquisite idles are as national as a jingo poem. mister Burkitt Foster's landscapes smile at one much in the same way that mister Carker used to flash his teeth, and mister John Collier gives his sitter a cheerful slap in the back, before he says, like a shampoo in a Turkish bath next man",
+        "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN"
+      },
+      {
+        "id": "1272-128104-0005",
+        "audio_s": 9.01,
+        "decode_s": 0.46320270900002924,
+        "hypothesis": "It is obviously unnecessary for us to point out how luminous these criticisms are, how delicate in expression.",
+        "reference": "IT IS OBVIOUSLY UNNECESSARY FOR US TO POINT OUT HOW LUMINOUS THESE CRITICISMS ARE HOW DELICATE IN EXPRESSION"
+      },
+      {
+        "id": "1272-128104-0006",
+        "audio_s": 5.64,
+        "decode_s": 0.30818995599997834,
+        "hypothesis": "Under general principles of art, mister Quilter writes with equal lucidity",
+        "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY"
+      },
+      {
+        "id": "1272-128104-0007",
+        "audio_s": 9.24,
+        "decode_s": 0.4682351840000365,
+        "hypothesis": "Painting, he tells us, is of a different quality to mathematics, and finish in art is adding more fact.",
+        "reference": "PAINTING HE TELLS US IS OF A DIFFERENT QUALITY TO MATHEMATICS AND FINISH IN ART IS ADDING MORE FACT"
+      },
+      {
+        "id": "1272-128104-0008",
+        "audio_s": 5.12,
+        "decode_s": 0.2851015759999882,
+        "hypothesis": "As for etchings, they are of two kinds British and foreign.",
+        "reference": "AS FOR ETCHINGS THEY ARE OF TWO KINDS BRITISH AND FOREIGN"
+      },
+      {
+        "id": "1272-128104-0009",
+        "audio_s": 18.29,
+        "decode_s": 0.9365607809999688,
+        "hypothesis": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures, makes a customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer",
+        "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER"
+      },
+      {
+        "id": "1272-128104-0010",
+        "audio_s": 5.6,
+        "decode_s": 0.30281341900001735,
+        "hypothesis": "near the fire, and the ornaments Fred brought home from India on the mantle board.",
+        "reference": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MANTEL BOARD"
+      },
+      {
+        "id": "1272-128104-0011",
+        "audio_s": 15.115,
+        "decode_s": 0.7816902840000353,
+        "hypothesis": "In fact, he is quite severe on mister Ruskin for not recognizing that a picture should denote the frailty of man, and remarks with pleasing courtesy and felicitous grace that many phases of feeling",
+        "reference": "IN FACT HE IS QUITE SEVERE ON MISTER RUSKIN FOR NOT RECOGNISING THAT A PICTURE SHOULD DENOTE THE FRAILTY OF MAN AND REMARKS WITH PLEASING COURTESY AND FELICITOUS GRACE THAT MANY PHASES OF FEELING"
+      },
+      {
+        "id": "1272-128104-0012",
+        "audio_s": 5.38,
+        "decode_s": 0.2943335520000119,
+        "hypothesis": "Only, unfortunately his own work never does get good",
+        "reference": "ONLY UNFORTUNATELY HIS OWN WORK NEVER DOES GET GOOD"
+      },
+      {
+        "id": "1272-128104-0013",
+        "audio_s": 7.1,
+        "decode_s": 0.3809956370000691,
+        "hypothesis": "mister Quilter has missed his chance, for he has failed even to make himself the tupper of painting.",
+        "reference": "MISTER QUILTER HAS MISSED HIS CHANCE FOR HE HAS FAILED EVEN TO MAKE HIMSELF THE TUPPER OF PAINTING"
+      },
+      {
+        "id": "1272-128104-0014",
+        "audio_s": 2.245,
+        "decode_s": 0.15804989499997646,
+        "hypothesis": "by Harry Quilter M. A.",
+        "reference": "BY HARRY QUILTER M A"
+      },
+      {
+        "id": "1272-135031-0000",
+        "audio_s": 10.885,
+        "decode_s": 0.5588961409999911,
+        "hypothesis": "Because you are sleeping instead of conquering, the lovely rose princess has become a fiddle without a bow while poor Shaggy sits there a cooing dove",
+        "reference": "BECAUSE YOU WERE SLEEPING INSTEAD OF CONQUERING THE LOVELY ROSE PRINCESS HAS BECOME A FIDDLE WITHOUT A BOW WHILE POOR SHAGGY SITS THERE A COOING DOVE"
+      },
+      {
+        "id": "1272-135031-0001",
+        "audio_s": 11.13,
+        "decode_s": 0.5706357079999407,
+        "hypothesis": "He has gone and gone for good, answered Polychrome, who had managed to squeeze into the room beside the dragon, and had witnessed the occurrences with much interest.",
+        "reference": "HE HAS GONE AND GONE FOR GOOD ANSWERED POLYCHROME WHO HAD MANAGED TO SQUEEZE INTO THE ROOM BESIDE THE DRAGON AND HAD WITNESSED THE OCCURRENCES WITH MUCH INTEREST"
+      },
+      {
+        "id": "1272-135031-0002",
+        "audio_s": 11.475,
+        "decode_s": 0.583394543000054,
+        "hypothesis": "I have remained a prisoner only because I wish to be one and with this he stepped forward and burst the stout chains as easily as if they had been threads.",
+        "reference": "I HAVE REMAINED A PRISONER ONLY BECAUSE I WISHED TO BE ONE AND WITH THIS HE STEPPED FORWARD AND BURST THE STOUT CHAINS AS EASILY AS IF THEY HAD BEEN THREADS"
+      },
+      {
+        "id": "1272-135031-0003",
+        "audio_s": 4.755,
+        "decode_s": 0.2673594299999422,
+        "hypothesis": "The little girl had been asleep, but she heard the raps and opened the door.",
+        "reference": "THE LITTLE GIRL HAD BEEN ASLEEP BUT SHE HEARD THE RAPS AND OPENED THE DOOR"
+      },
+      {
+        "id": "1272-135031-0004",
+        "audio_s": 4.225,
+        "decode_s": 0.2612325280000505,
+        "hypothesis": "The king is flood in disgrace, and your friends are asking for you.",
+        "reference": "THE KING HAS FLED IN DISGRACE AND YOUR FRIENDS ARE ASKING FOR YOU"
+      },
+      {
+        "id": "1272-135031-0005",
+        "audio_s": 4.625,
+        "decode_s": 0.30316800699995383,
+        "hypothesis": "I begged Ruggedo long ago to send him away, but he would not do so.",
+        "reference": "I BEGGED RUGGEDO LONG AGO TO SEND HIM AWAY BUT HE WOULD NOT DO SO"
+      },
+      {
+        "id": "1272-135031-0006",
+        "audio_s": 4.09,
+        "decode_s": 0.25991076100001465,
+        "hypothesis": "I also offered to help your brother to escape, but he would not go",
+        "reference": "I ALSO OFFERED TO HELP YOUR BROTHER TO ESCAPE BUT HE WOULD NOT GO"
+      },
+      {
+        "id": "1272-135031-0007",
+        "audio_s": 4.055,
+        "decode_s": 0.24006802700000662,
+        "hypothesis": "He eats and sleeps very steadily, replied the new king.",
+        "reference": "HE EATS AND SLEEPS VERY STEADILY REPLIED THE NEW KING"
+      },
+      {
+        "id": "1272-135031-0008",
+        "audio_s": 3.67,
+        "decode_s": 0.21771502700005385,
+        "hypothesis": "I hope he doesn't work too hard, said Shaggy.",
+        "reference": "I HOPE HE DOESN'T WORK TOO HARD SAID SHAGGY"
+      },
+      {
+        "id": "1272-135031-0009",
+        "audio_s": 1.91,
+        "decode_s": 0.13867423900001086,
+        "hypothesis": "He doesn't work at all.",
+        "reference": "HE DOESN'T WORK AT ALL"
+      },
+      {
+        "id": "1272-135031-0010",
+        "audio_s": 8.995,
+        "decode_s": 0.46254762299997765,
+        "hypothesis": "In fact, there is nothing he can do in these dominions as well as our gnomes, whose numbers are so great that it worries us to keep them all busy.",
+        "reference": "IN FACT THERE IS NOTHING HE CAN DO IN THESE DOMINIONS AS WELL AS OUR NOMES WHOSE NUMBERS ARE SO GREAT THAT IT WORRIES US TO KEEP THEM ALL BUSY"
+      },
+      {
+        "id": "1272-135031-0011",
+        "audio_s": 3.18,
+        "decode_s": 0.19797996299996612,
+        "hypothesis": "Not exactly, returned Calico.",
+        "reference": "NOT EXACTLY RETURNED KALIKO"
+      },
+      {
+        "id": "1272-135031-0012",
+        "audio_s": 2.04,
+        "decode_s": 0.14951463700003842,
+        "hypothesis": "Where is my brother now?",
+        "reference": "WHERE IS MY BROTHER NOW"
+      },
+      {
+        "id": "1272-135031-0013",
+        "audio_s": 3.7,
+        "decode_s": 0.2203932810000424,
+        "hypothesis": "inquired Shaggy, in the metal forest.",
+        "reference": "INQUIRED SHAGGY IN THE METAL FOREST"
+      },
+      {
+        "id": "1272-135031-0014",
+        "audio_s": 1.74,
+        "decode_s": 0.13115626800004065,
+        "hypothesis": "Where is that?",
+        "reference": "WHERE IS THAT"
+      },
+      {
+        "id": "1272-135031-0015",
+        "audio_s": 7.375,
+        "decode_s": 0.39410809000003155,
+        "hypothesis": "The Metal Forest is in the great domed cavern, the largest in all our dominions, replied Kalico.",
+        "reference": "THE METAL FOREST IS IN THE GREAT DOMED CAVERN THE LARGEST IN ALL OUR DOMINIONS REPLIED KALIKO"
+      },
+      {
+        "id": "1272-135031-0016",
+        "audio_s": 2.28,
+        "decode_s": 0.16107437699997718,
+        "hypothesis": "Calico hesitated.",
+        "reference": "KALIKO HESITATED"
+      },
+      {
+        "id": "1272-135031-0017",
+        "audio_s": 6.86,
+        "decode_s": 0.3624932710000621,
+        "hypothesis": "However, if we look sharp we may be able to discover one of these secret ways.",
+        "reference": "HOWEVER IF WE LOOK SHARP WE MAY BE ABLE TO DISCOVER ONE OF THESE SECRET WAYS"
+      },
+      {
+        "id": "1272-135031-0018",
+        "audio_s": 2.4449375,
+        "decode_s": 0.17056189999993876,
+        "hypothesis": "Oh no, I'm quite sure he didn't",
+        "reference": "OH NO I'M QUITE SURE HE DIDN'T"
+      },
+      {
+        "id": "1272-135031-0019",
+        "audio_s": 3.525,
+        "decode_s": 0.2165176319999773,
+        "hypothesis": "That's funny, remarked Betsy, thoughtfully.",
+        "reference": "THAT'S FUNNY REMARKED BETSY THOUGHTFULLY"
+      },
+      {
+        "id": "1272-135031-0020",
+        "audio_s": 4.65,
+        "decode_s": 0.26868914900001073,
+        "hypothesis": "I don't believe Anne knew any magic or she'd have worked it before.",
+        "reference": "I DON'T BELIEVE ANN KNEW ANY MAGIC OR SHE'D HAVE WORKED IT BEFORE"
+      },
+      {
+        "id": "1272-135031-0021",
+        "audio_s": 2.595,
+        "decode_s": 0.1742994410000165,
+        "hypothesis": "I do not know, confessed Shaggy,",
+        "reference": "I DO NOT KNOW CONFESSED SHAGGY"
+      },
+      {
+        "id": "1272-135031-0022",
+        "audio_s": 2.695,
+        "decode_s": 0.1761951000000863,
+        "hypothesis": "True, agreed Calico.",
+        "reference": "TRUE AGREED KALIKO"
+      },
+      {
+        "id": "1272-135031-0023",
+        "audio_s": 7.52,
+        "decode_s": 0.39578866700003346,
+        "hypothesis": "Calico went at a big gong and pounded on it just as Rigodo used to do, but no one answered the summons.",
+        "reference": "KALIKO WENT TO THE BIG GONG AND POUNDED ON IT JUST AS RUGGEDO USED TO DO BUT NO ONE ANSWERED THE SUMMONS"
+      },
+      {
+        "id": "1272-135031-0024",
+        "audio_s": 14.47,
+        "decode_s": 0.7299855519999028,
+        "hypothesis": "Having returned to the royal cavern, Calico first pounded the gong and then sat in the throne, wearing Rugedo's discarded ruby crown and holding in his hand the scepter which Rugedo had so often thrown at his head.",
+        "reference": "HAVING RETURNED TO THE ROYAL CAVERN KALIKO FIRST POUNDED THE GONG AND THEN SAT IN THE THRONE WEARING RUGGEDO'S DISCARDED RUBY CROWN AND HOLDING IN HIS HAND THE SCEPTRE WHICH RUGGEDO HAD SO OFTEN THROWN AT HIS HEAD"
+      },
+      {
+        "id": "1272-141231-0000",
+        "audio_s": 4.65,
+        "decode_s": 0.2629294939999909,
+        "hypothesis": "A man said to the universe Sir, I exist",
+        "reference": "A MAN SAID TO THE UNIVERSE SIR I EXIST"
+      },
+      {
+        "id": "1272-141231-0001",
+        "audio_s": 6.535,
+        "decode_s": 0.3711870969999609,
+        "hypothesis": "Sweat covered Brian's body, trickling into the tight loin cloth that was the only garment he wore",
+        "reference": "SWEAT COVERED BRION'S BODY TRICKLING INTO THE TIGHT LOINCLOTH THAT WAS THE ONLY GARMENT HE WORE"
+      },
+      {
+        "id": "1272-141231-0002",
+        "audio_s": 13.335,
+        "decode_s": 0.671767225999929,
+        "hypothesis": "the cut on his chest still dripping blood the ache of his overstrained eyes even the soaring arena around him with thousands of spectators were trivialities not worth thinking about.",
+        "reference": "THE CUT ON HIS CHEST STILL DRIPPING BLOOD THE ACHE OF HIS OVERSTRAINED EYES EVEN THE SOARING ARENA AROUND HIM WITH THE THOUSANDS OF SPECTATORS WERE TRIVIALITIES NOT WORTH THINKING ABOUT"
+      },
+      {
+        "id": "1272-141231-0003",
+        "audio_s": 5.42,
+        "decode_s": 0.2976767339999924,
+        "hypothesis": "His instant panic was followed by a small, sharp blow high on his chest.",
+        "reference": "HIS INSTANT OF PANIC WAS FOLLOWED BY A SMALL SHARP BLOW HIGH ON HIS CHEST"
+      },
+      {
+        "id": "1272-141231-0004",
+        "audio_s": 5.09,
+        "decode_s": 0.27747606899993116,
+        "hypothesis": "One minute a voice said, and a time buzzer sounded.",
+        "reference": "ONE MINUTE A VOICE SAID AND THE TIME BUZZER SOUNDED"
+      },
+      {
+        "id": "1272-141231-0005",
+        "audio_s": 5.81,
+        "decode_s": 0.3230761209999855,
+        "hypothesis": "A minute is not a very large measure of time, and his body needed every fraction of it.",
+        "reference": "A MINUTE IS NOT A VERY LARGE MEASURE OF TIME AND HIS BODY NEEDED EVERY FRACTION OF IT"
+      },
+      {
+        "id": "1272-141231-0006",
+        "audio_s": 4.93,
+        "decode_s": 0.27757553799995094,
+        "hypothesis": "The buzzer of whirr triggered his muscles into complete relaxation.",
+        "reference": "THE BUZZER'S WHIRR TRIGGERED HIS MUSCLES INTO COMPLETE RELAXATION"
+      },
+      {
+        "id": "1272-141231-0007",
+        "audio_s": 4.735,
+        "decode_s": 0.2673934959999542,
+        "hypothesis": "Only his heart and lungs worked on at a strong measured rate.",
+        "reference": "ONLY HIS HEART AND LUNGS WORKED ON AT A STRONG MEASURED RATE"
+      },
+      {
+        "id": "1272-141231-0008",
+        "audio_s": 4.595,
+        "decode_s": 0.2638633999999911,
+        "hypothesis": "He was in reverie, sliding along the borders of consciousness.",
+        "reference": "HE WAS IN REVERIE SLIDING ALONG THE BORDERS OF CONSCIOUSNESS"
+      },
+      {
+        "id": "1272-141231-0009",
+        "audio_s": 8.62,
+        "decode_s": 0.44569482899999,
+        "hypothesis": "The contestants in the twenties needed undisturbed rest therefore, nights in the dormitories were as quiet as death.",
+        "reference": "THE CONTESTANTS IN THE TWENTIES NEEDED UNDISTURBED REST THEREFORE NIGHTS IN THE DORMITORIES WERE AS QUIET AS DEATH"
+      },
+      {
+        "id": "1272-141231-0010",
+        "audio_s": 10.76,
+        "decode_s": 0.5465018560000772,
+        "hypothesis": "particularly so on this last night when only two of the little cubicles were occupied the thousands of others standing with dark empty doors.",
+        "reference": "PARTICULARLY SO ON THIS LAST NIGHT WHEN ONLY TWO OF THE LITTLE CUBICLES WERE OCCUPIED THE THOUSANDS OF OTHERS STANDING WITH DARK EMPTY DOORS"
+      },
+      {
+        "id": "1272-141231-0011",
+        "audio_s": 5.015,
+        "decode_s": 0.27868482899998526,
+        "hypothesis": "The other voice snapped with a harsh urgency clearly used to command.",
+        "reference": "THE OTHER VOICE SNAPPED WITH A HARSH URGENCY CLEARLY USED TO COMMAND"
+      },
+      {
+        "id": "1272-141231-0012",
+        "audio_s": 7.74,
+        "decode_s": 0.406358804999968,
+        "hypothesis": "I am here because the matter is of utmost importance, and Brand is the one I must see. Now stand aside",
+        "reference": "I'M HERE BECAUSE THE MATTER IS OF UTMOST IMPORTANCE AND BRANDD IS THE ONE I MUST SEE NOW STAND ASIDE"
+      },
+      {
+        "id": "1272-141231-0013",
+        "audio_s": 1.6399375,
+        "decode_s": 0.13440908199993373,
+        "hypothesis": "The twenties",
+        "reference": "THE TWENTIES"
+      },
+      {
+        "id": "1272-141231-0014",
+        "audio_s": 7.305,
+        "decode_s": 0.3870017120000284,
+        "hypothesis": "He must have drawn his gun because the intruder said quickly put that away you're being a fool Out",
+        "reference": "HE MUST HAVE DRAWN HIS GUN BECAUSE THE INTRUDER SAID QUICKLY PUT THAT AWAY YOU'RE BEING A FOOL OUT"
+      },
+      {
+        "id": "1272-141231-0015",
+        "audio_s": 5.68,
+        "decode_s": 0.3104133390000925,
+        "hypothesis": "There was silence then, and, still wondering Brianne was once more asleep.",
+        "reference": "THERE WAS SILENCE THEN AND STILL WONDERING BRION WAS ONCE MORE ASLEEP"
+      },
+      {
+        "id": "1272-141231-0016",
+        "audio_s": 1.85,
+        "decode_s": 0.13543907500002206,
+        "hypothesis": "Ten seconds.",
+        "reference": "TEN SECONDS"
+      },
+      {
+        "id": "1272-141231-0017",
+        "audio_s": 3.735,
+        "decode_s": 0.22188049800001863,
+        "hypothesis": "he asked the handler, who was kneading his aching muscles.",
+        "reference": "HE ASKED THE HANDLER WHO WAS KNEADING HIS ACHING MUSCLES"
+      },
+      {
+        "id": "1272-141231-0018",
+        "audio_s": 6.0,
+        "decode_s": 0.32432053700006236,
+        "hypothesis": "a red haired mountain of a man with an apparently inexhaustible store of energy",
+        "reference": "A RED HAIRED MOUNTAIN OF A MAN WITH AN APPARENTLY INEXHAUSTIBLE STORE OF ENERGY"
+      },
+      {
+        "id": "1272-141231-0019",
+        "audio_s": 4.7,
+        "decode_s": 0.2650308690000429,
+        "hypothesis": "There could be little art in this last and final round of fencing.",
+        "reference": "THERE COULD BE LITTLE ART IN THIS LAST AND FINAL ROUND OF FENCING"
+      },
+      {
+        "id": "1272-141231-0020",
+        "audio_s": 4.32,
+        "decode_s": 0.2525965190000079,
+        "hypothesis": "just thrust and parry and victory to the stronger",
+        "reference": "JUST THRUST AND PARRY AND VICTORY TO THE STRONGER"
+      },
+      {
+        "id": "1272-141231-0021",
+        "audio_s": 4.65,
+        "decode_s": 0.2639952539999513,
+        "hypothesis": "Every man who entered the twenties had his own training tricks.",
+        "reference": "EVERY MAN WHO ENTERED THE TWENTIES HAD HIS OWN TRAINING TRICKS"
+      },
+      {
+        "id": "1272-141231-0022",
+        "audio_s": 8.35,
+        "decode_s": 0.43486912600008054,
+        "hypothesis": "There appeared to be an immediate association with the death trauma as if the two were inextricably linked into one.",
+        "reference": "THERE APPEARED TO BE AN IMMEDIATE ASSOCIATION WITH THE DEATH TRAUMA AS IF THE TWO WERE INEXTRICABLY LINKED INTO ONE"
+      },
+      {
+        "id": "1272-141231-0023",
+        "audio_s": 8.66,
+        "decode_s": 0.45012005099999897,
+        "hypothesis": "The strength that enables someone in a trance to hold his body stiff and unsupported, except at two points the head and heels.",
+        "reference": "THE STRENGTH THAT ENABLES SOMEONE IN A TRANCE TO HOLD HIS BODY STIFF AND UNSUPPORTED EXCEPT AT TWO POINTS THE HEAD AND HEELS"
+      },
+      {
+        "id": "1272-141231-0024",
+        "audio_s": 3.64,
+        "decode_s": 0.2202810539999973,
+        "hypothesis": "This is physically impossible when conscious.",
+        "reference": "THIS IS PHYSICALLY IMPOSSIBLE WHEN CONSCIOUS"
+      },
+      {
+        "id": "1272-141231-0025",
+        "audio_s": 8.725,
+        "decode_s": 0.4500143080000498,
+        "hypothesis": "Others had died before during the twenties, and death during the last round was, in some ways, easier than defeat.",
+        "reference": "OTHERS HAD DIED BEFORE DURING THE TWENTIES AND DEATH DURING THE LAST ROUND WAS IN SOME WAYS EASIER THAN DEFEAT"
+      },
+      {
+        "id": "1272-141231-0026",
+        "audio_s": 6.635,
+        "decode_s": 0.35785507599996436,
+        "hypothesis": "Breathing deeply, Brian softly spoke the auto hypnotic phrases that triggered the process.",
+        "reference": "BREATHING DEEPLY BRION SOFTLY SPOKE THE AUTO HYPNOTIC PHRASES THAT TRIGGERED THE PROCESS"
+      },
+      {
+        "id": "1272-141231-0027",
+        "audio_s": 6.57,
+        "decode_s": 0.3582593009999755,
+        "hypothesis": "When the buzzer sounded, he pulled his foil from his second startled grasp and ran forward.",
+        "reference": "WHEN THE BUZZER SOUNDED HE PULLED HIS FOIL FROM HIS SECOND'S STARTLED GRASP AND RAN FORWARD"
+      },
+      {
+        "id": "1272-141231-0028",
+        "audio_s": 5.65,
+        "decode_s": 0.3129453320000266,
+        "hypothesis": "Irolle looked amazed at the sudden fury of the attack, then smiled.",
+        "reference": "IROLG LOOKED AMAZED AT THE SUDDEN FURY OF THE ATTACK THEN SMILED"
+      },
+      {
+        "id": "1272-141231-0029",
+        "audio_s": 6.88,
+        "decode_s": 0.382512088999988,
+        "hypothesis": "He thought it was the last burst of energy. He knew how close they both were to exhaustion.",
+        "reference": "HE THOUGHT IT WAS A LAST BURST OF ENERGY HE KNEW HOW CLOSE THEY BOTH WERE TO EXHAUSTION"
+      },
+      {
+        "id": "1272-141231-0030",
+        "audio_s": 7.13,
+        "decode_s": 0.38511252000000695,
+        "hypothesis": "Brian saw something close to panic on his opponent's face when the man finally recognized his error",
+        "reference": "BRION SAW SOMETHING CLOSE TO PANIC ON HIS OPPONENT'S FACE WHEN THE MAN FINALLY RECOGNIZED HIS ERROR"
+      },
+      {
+        "id": "1272-141231-0031",
+        "audio_s": 7.115,
+        "decode_s": 0.37848743300003207,
+        "hypothesis": "A wave of despair rolled out from Irologue reinsensed it and knew the fifth point was his",
+        "reference": "A WAVE OF DESPAIR ROLLED OUT FROM IROLG BRION SENSED IT AND KNEW THE FIFTH POINT WAS HIS"
+      },
+      {
+        "id": "1272-141231-0032",
+        "audio_s": 4.48,
+        "decode_s": 0.2636933520000184,
+        "hypothesis": "Then the powerful twist that thrust it aside in and under the guard",
+        "reference": "THEN THE POWERFUL TWIST THAT THRUST IT ASIDE IN AND UNDER THE GUARD"
+      }
+    ],
+    "error_examples": [
+      {
+        "id": "1272-128104-0001",
+        "audio_s": 4.815,
+        "decode_s": 0.2830187609999939,
+        "hypothesis": "Nor is mister Quilter's manner less interesting than his manner.",
+        "reference": "NOR IS MISTER QUILTER'S MANNER LESS INTERESTING THAN HIS MATTER"
+      },
+      {
+        "id": "1272-128104-0004",
+        "audio_s": 29.4,
+        "decode_s": 1.6062874259999944,
+        "hypothesis": "Linel's pictures are a sort of up guards and atom paintings, and Mason's exquisite idles are as national as a jingo poem. mister Burkitt Foster's landscapes smile at one much in the same way that mister Carker used to flash his teeth, and mister John Collier gives his sitter a cheerful slap in the back, before he says, like a shampoo in a Turkish bath next man",
+        "reference": "LINNELL'S PICTURES ARE A SORT OF UP GUARDS AND AT EM PAINTINGS AND MASON'S EXQUISITE IDYLLS ARE AS NATIONAL AS A JINGO POEM MISTER BIRKET FOSTER'S LANDSCAPES SMILE AT ONE MUCH IN THE SAME WAY THAT MISTER CARKER USED TO FLASH HIS TEETH AND MISTER JOHN COLLIER GIVES HIS SITTER A CHEERFUL SLAP ON THE BACK BEFORE HE SAYS LIKE A SHAMPOOER IN A TURKISH BATH NEXT MAN"
+      },
+      {
+        "id": "1272-128104-0006",
+        "audio_s": 5.64,
+        "decode_s": 0.30818995599997834,
+        "hypothesis": "Under general principles of art, mister Quilter writes with equal lucidity",
+        "reference": "ON THE GENERAL PRINCIPLES OF ART MISTER QUILTER WRITES WITH EQUAL LUCIDITY"
+      },
+      {
+        "id": "1272-128104-0009",
+        "audio_s": 18.29,
+        "decode_s": 0.9365607809999688,
+        "hypothesis": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures, makes a customary appeal to the last judgment and reminds us that in the great days of art Michelangelo was the furnishing upholsterer",
+        "reference": "HE LAMENTS MOST BITTERLY THE DIVORCE THAT HAS BEEN MADE BETWEEN DECORATIVE ART AND WHAT WE USUALLY CALL PICTURES MAKES THE CUSTOMARY APPEAL TO THE LAST JUDGMENT AND REMINDS US THAT IN THE GREAT DAYS OF ART MICHAEL ANGELO WAS THE FURNISHING UPHOLSTERER"
+      },
+      {
+        "id": "1272-128104-0010",
+        "audio_s": 5.6,
+        "decode_s": 0.30281341900001735,
+        "hypothesis": "near the fire, and the ornaments Fred brought home from India on the mantle board.",
+        "reference": "NEAR THE FIRE AND THE ORNAMENTS FRED BROUGHT HOME FROM INDIA ON THE MANTEL BOARD"
+      }
+    ],
+    "normalized_mismatches": 30
+  }
+]

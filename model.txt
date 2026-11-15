@@ -1,0 +1,239 @@
+VISIONASSIST — AI MODELS AND PYTHON/FLET MODULES
+================================================
+
+Repository: /home/panger/Coding/pyprojects/vision-assist
+Generated: 2026-11-15
+Runtime: Python 3.14 (shared venv), ONNX Runtime only, no PyTorch/transformers.
+
+
+1. AI MODELS IN USE
+===================
+
+All weights live in src/assets/models and are gitignored. Total on disk after
+cleanup: about 1.5 GB. `tools/package_models.py` decides what ships.
+
+1.1 YOLO11n (object detection)
+    Files      : src/assets/models/yolo11n/yolo11n.onnx (11 MB)
+                 src/assets/models/yolo11n/config.json (COCO label map)
+    Role       : detects objects in every camera frame; source of boxes that
+                 drive hazards, distances and "where is X".
+    Classes    : 80 COCO classes (person, chair, cup, cell phone, ...).
+    Licence    : AGPL-3.0 (Ultralytics upstream).
+    Code       : adapters/detection/yolo_onnx.py  (YoloDetector)
+                 adapters/detection/tracker.py    (stable IDs)
+    Notes      : 0.18-0.24 s per 640x360 frame on this CPU.
+
+1.2 Silero VAD (voice activity detection)
+    Files      : src/assets/models/silero-vad/silero_vad.onnx (632 KB, int8)
+    Role       : decides whether a chunk of microphone audio is speech;
+                 finds the end of an utterance (~0.6-0.8 s of silence) and
+                 gates the wake loop / ASR. It does not understand words.
+    Licence    : MIT.
+    Code       : adapters/speech/vad.py (SpeechSegmenter, LiveEndpoint)
+    Notes      : must be fed in 512-sample windows at 16 kHz; feeding a whole
+                 recording returns almost nothing.
+
+1.3 Parakeet TDT 110M (speech recognition, default ASR)
+    Files      : src/assets/models/asr-parakeet-110m/{encoder,decoder,joiner}
+                 .int8.onnx + tokens.txt (131 MB)
+    Role       : turns a VAD-trimmed utterance into English text, punctuated.
+    Licence    : CC-BY-4.0 (NVIDIA); attribution required in shipped builds.
+    Code       : adapters/speech/asr.py (ParakeetAsr)
+    Notes      : offline (no partials); measured 4.6 % WER / RTF 0.055 on the
+                 73-clip LibriSpeech dummy corpus (docs/asr-benchmark.md).
+
+1.4 Paradee-8M v1.3 (text to speech)
+    Files      : src/assets/models/paradee/paradee_int8.onnx (8.5 MB)
+                 src/assets/models/paradee/config.json
+                 src/assets/models/g2p/{us,gb}_{gold,silver}.json (13 MB data)
+    Role       : all spoken output: answers, "Careful", greeting.
+                 24 kHz mono WAV, four English voices.
+    Licence    : Apache-2.0 (model and misaki lexicons).
+    Code       : adapters/speech/paradee.py (ParadeeTts)
+                 adapters/speech/g2p.py, vocab.py (text -> phoneme ids)
+    Notes      : 512 phoneme-id limit, long text is split by sentence.
+
+1.5 MobileCLIP2-B (open-vocabulary image/text search)
+    Files      : src/assets/models/mobileclip2-b/image.onnx (330 MB)
+                 src/assets/models/mobileclip2-b/text.onnx (243 MB)
+                 tokenizer.json + config.json (576 MB total)
+    Role       : "find my keys" / "is there a mug" for objects outside COCO.
+                 Embeds the query once, scores frames/strips by cosine.
+    Licence    : apple-amlr (research licence; fine for the demo, review before
+                 distribution).
+    Code       : adapters/models/clip.py (ClipSearch)
+    Notes      : threshold 0.22 (Settings.clip_threshold); ~0.6 s per image on
+                 this CPU; measured cup photo: cup 0.305, spoon 0.240,
+                 phone 0.139.
+
+1.6 Qwen3.5-0.8B VLM (vision-language descriptions and questions)
+    Files      : src/assets/models/qwen3.5-0.8b/onnx/
+                 decoder_model_merged_q4.onnx(+data) 463 MB
+                 embed_tokens_q4.onnx(+data) 156 MB
+                 vision_encoder_q4.onnx(+data) 66 MB
+                 tokenizer.json, config.json, generation_config.json
+                 (~704 MB total)
+    Role       : "describe it" and free-form visual questions ("what colour is
+                 the cup?"). Answers in one short sentence.
+    Licence    : Apache-2.0.
+    Code       : adapters/models/qwen_runner.py (QwenVlRunner, greedy decode
+                 with KV cache)
+                 adapters/models/qwen_vlm.py  (QwenVlmDescriber)
+    Notes      : 128 px input, max ~20 output words; 3-5 s per answer; loaded
+                 lazily on first use, never at startup.
+
+1.7 NOT SHIPPED / REJECTED
+    Streaming zipformer EN int8 (73 MB, Apache-2.0): removed from assets.
+        Optional live partials; re-fetch with `fetch_models.py --partials`.
+    MobileCLIP2-S0 int8 (felixhrdyn, 107 MB): deleted after testing showed the
+        towers are misaligned (dog image scored "phone" 0.045 vs "dog" 0.044).
+    Qwen3-ASR-0.6B: superseded by Parakeet for English; only wins on multiple
+        languages.
+    LFM3-Omni-2B, OWLv2, Depth-Anything-V2-S, Kokoro, Piper, YuNet: considered,
+        not installed (see plan.md).
+
+
+2. PYTHON PACKAGES (runtime)
+============================
+
+flet>=1.1.2                 UI toolkit (desktop/web/Android client).
+flet-audio>=1.1.2           ft.Audio service for TTS and earcons.
+flet-audio-recorder>=1.1.2  microphone capture on desktop/Android/web
+                            (16 kHz mono PCM16 streaming, VAD endpointing).
+                            Needs Android RECORD_AUDIO permission.
+onnxruntime>=1.27.0         inference for every model above (CPU).
+numpy>=2.0                  frames, audio samples, embeddings, earcon synthesis.
+opencv-python-headless      camera capture, resize, JPEG encode/decode, drawing.
+sherpa-onnx>=2.0.1          Silero VAD + Parakeet ASR runtime.
+platformdirs>=4.0           per-user settings path (~/.config/vision-assist).
+tokenizers>=0.23            CLIP and Qwen tokenizers (tokenizer.json).
+
+Dev-only:
+pytest, pytest-asyncio      unit tests (191, no camera/audio needed).
+flet-cli/desktop/web        flet run / build.
+flet[test]                  Flutter integration harness (unusable here: no cmake).
+pyarrow>=17                 tools/bench_asr.py parquet corpus.
+sounddevice>=0.5            dev-only desktop mic for tools/test_wake.py; never
+                            shipped in the APK (no Android wheel).
+
+System tools (not Python): ffmpeg for the ASR benchmark; cmake is MISSING, so
+`flet test` cannot run.
+
+
+3. FLET MODULES / APIS USED
+===========================
+
+ft (flet)
+    ft.run(main)                     app entrypoint. src/main.py
+    ft.Page, Page.run_task           event loop, worker tasks. ui/app.py
+    Page.appbar / ft.AppBar          title, mute + settings buttons.
+    ft.SafeArea, ft.Container,
+    ft.Row, ft.Column, ft.Stack      layout. ft.StackFit.EXPAND keeps the
+                                     camera preview centred with letterboxing.
+    ft.Image                          camera preview; gapless_playback=True is
+                                     required or it flashes at frame rate.
+    ft.Text / TextField               status, answers, typed commands.
+    ft.FilledButton/OutlinedButton/
+    ft.TextButton/IconButton          Talk, quick actions, dialog actions.
+    ft.Slider, ft.Switch, ft.Dropdown alert/distance/calibration settings.
+    ft.AlertDialog, page.show_dialog  settings dialog (built in one function so
+                                     tests can validate it without a page).
+    ft.Icons, ft.Colors, ft.Alignment, ft.Padding, ft.BorderRadius,
+    ft.Border, ft.BoxFit, ft.BoxFit.CONTAIN, ft.ScrollMode, ft.TextAlign,
+    ft.FontWeight, ft.ThemeMode       styling/enums.
+    Page.on_disconnect                stops the camera when the window closes.
+    Page.update                       pushes control/state changes to the client.
+
+flet_audio (imported as fta)
+    fta.Audio                        speech + alert players. Never construct
+                                     with src=None; ReleaseMode.LOOP for alert
+                                     patterns, ReleaseMode.STOP for one-shots;
+                                     duck_alerts lowers the chime to 12 % while
+                                     the user speaks.
+
+flet_audio_recorder
+    AudioRecorder, AudioRecorderConfiguration, AudioEncoder
+                                    microphone capture. PCM16BITS + 16 kHz +
+                                    mono, raw chunks via on_stream; the stream
+                                    feeds Silero VAD while recording.
+                                    has_permission() prompts on Android.
+
+flet.HapticFeedback                 close-hazard pulse (service added to
+                                    page.services; no-op on desktop).
+ft.ShakeDetector                    mobile shake-to-talk (service).
+
+flet.testing (dev only)             not used: the repo has no Flutter
+                                    integration tests (cmake missing).
+
+
+4. PROJECT PYTHON MODULES
+=========================
+
+src/main.py              entrypoint; ft.run(main).
+src/domain/              pure logic, no I/O, no Flet:
+  types.py               Box, Detection, Track, Band, Hazard, SceneItem,
+                         AlertEvent, AlertStyle, distance_speech.
+  distance.py            CameraModel ground-plane geometry, bands, hysteresis,
+                         surface plane, very-close/clipping rule, calibration.
+  hazards.py             HazardMonitor: corridor + distance + confirmation,
+                         emits enter/change/clear events.
+  scene.py               detection -> speakable SceneItems; COCO label aliases.
+  intents.py             rule-based intents (scene/check/locate/describe/find/
+                         stop/mute/help), wake-phrase stripping, fuzzy matching.
+  settings.py            Settings dataclass + JSON persistence + clamping.
+
+src/adapters/            I/O and models:
+  paths.py               asset/model path resolution (FLET_ASSETS_DIR override).
+  capture/base.py        Frame + FrameSource protocol.
+  capture/opencv_source.py threaded camera/video source, reconnects when busy.
+  capture/demo_source.py synthetic frames for camera-less demos.
+  detection/yolo_onnx.py YOLO11n letterbox/decode/NMS, COCO labels.
+  detection/tracker.py   greedy-IoU tracking, stable IDs, confirmation.
+  detection/preview.py   annotated JPEG for the preview.
+  models/base.py         Describer protocol, DescribeRequest, capabilities.
+  models/registry.py     name -> describer factory; "auto" picks Qwen if
+                         installed, else the template.
+  models/fake.py         template describer (no model).
+  models/unavailable.py  explains why a backend is missing.
+  models/clip.py         MobileCLIP2-B embeddings + open-vocab scoring.
+  models/qwen_runner.py  Qwen3.5 ONNX preprocess/prefill/KV-cache decode.
+  models/qwen_vlm.py     Qwen adapter implementing Describer; short prompts.
+  speech/asr.py          Parakeet (and optional zipformer) ASR adapters.
+  speech/vad.py          Silero VAD trimming and live endpointing.
+  speech/microphone.py   FletAudioRecorderMicrophone (PCM16 stream, async
+                         record) + dev-only SoundDevice fallback + Null.
+  speech/paradee.py      Paradee TTS with sentence chunking.
+  speech/g2p.py          dictionary grapheme-to-phoneme (misaki lexicons).
+  speech/vocab.py        Kokoro/Paradee phoneme vocabulary + tokenisation.
+  speech/earcons.py      generated WAV earcons (soft chime patterns, cues).
+
+src/app/assistant.py     orchestration: camera->detection->hazards->alerts,
+                         ASR/TTS, wake loop, intents, search, calibration,
+                         startup warming. No Flet imports; audio goes through
+                         the Speaker port.
+
+src/ui/app.py            Flet UI: AppBar, preview, status/answer panels, Talk,
+                         settings dialog, shake-to-talk, preview loop.
+src/ui/audio.py          FletSpeaker: ft.Audio implementation of the Speaker
+                         port (speech, looping alerts, ducking, haptics).
+
+tools/fetch_models.py    copy sibling-project bundles / download VAD+ASR.
+tools/package_models.py  APK profiles: apk (169 MB), apk-vision (907 MB),
+                         apk-full (1.5 GB), full; parks optional models.
+tools/bench_asr.py       WER/RTF benchmark (LibriSpeech dummy, pyarrow+ffmpeg).
+tools/test_wake.py       acoustic wake probe (human or TTS, alarm simulation).
+tools/audition_alerts.py renders every earcon to WAV for listening tests.
+
+tests/                   191 pytest unit tests. test_yolo, test_paradee,
+                         test_asr, test_clip auto-skip when assets are missing.
+
+
+5. SIZE SUMMARY
+===============
+
+Core (always shipped): yolo 11 + paradee 8.1 + g2p 13 + silero 0.6 +
+parakeet 131 = about 169 MB.
+apk-vision:  + Qwen VLM 704 MB  = about 907 MB.
+apk-full:    + MobileCLIP2-B 576 MB = about 1.5 GB assets.
+Expected APK also includes the Flet/Flutter runtime, so allow headroom over
+the asset number when packing.
